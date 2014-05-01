@@ -1,0 +1,1 @@
+"use strict";var indexModel=function(){var e={};return e.greeting=function(){console.log("Hello World!")},e}();
