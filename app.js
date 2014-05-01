@@ -5,7 +5,6 @@ var express = require('express'),
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
-
 if(debug){
 	app.use('/css', express.static(__dirname + '/css'));
 	app.use('/js', express.static(__dirname + '/js'));
