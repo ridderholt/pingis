@@ -7,7 +7,7 @@ app.engine('html', require('ejs').renderFile);
 
 if(debug){
 	app.use('/css', express.static(__dirname + '/css'));
-	app.use('/js', express.static(__dirname + '/js'));
+	app.use('/js', express.static(__dirname + '/js/build'));
 } else {
 	app.use('/css', express.static(__dirname + '/css/dist'));
 	app.use('/js', express.static(__dirname + '/js/dist'));

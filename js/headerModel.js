@@ -1,31 +1,30 @@
-/** @jsx React.DOM */
+var MenuItem = require('./menuItem');
+
 var Header = React.createClass({
 	getInitialState: function() {
 		return {data: []};
 	},
 	render: function(){
 		return (
-			<div className="header">
-				<ul className="nav nav-pills pull-right">
-					<MenuItem name="Home" isActive="true" />
-					<MenuItem name="About" />
-					<MenuItem name="Contact" />
-				</ul>
-				<h3 className="text-muted">{this.props.projectName}</h3>
-			</div>
+			React.DOM.div({
+				className: 'header',
+				children: [
+					React.DOM.ul({
+						className: 'nav nav-pills pull-right',
+						children: [
+							MenuItem({ name: 'Statistik', isActive: true }),
+							MenuItem({ name: 'Spela match' }),
+							MenuItem({ name: 'Lägg till spelare' })]
+					}),
+					React.DOM.h3({
+						className: 'text-muted',
+						children: 'Pingisstegen'
+					})]
+				})
 			);
-	}
-});
-
-var MenuItem = React.createClass({
-	render: function(){
-		return (
-			<li><a href="#">{this.props.name}</a></li>
-		);
 	}
 });
 
 React.renderComponent(
 	Header({ projectName: 'Pingisstegen' }),
-	document.getElementById('headerContainer')
-);
+	document.getElementById('headerContainer'));
