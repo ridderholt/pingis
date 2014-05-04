@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 var MenuItem = require('./menuItem');
 
 var Header = React.createClass({
@@ -6,21 +7,14 @@ var Header = React.createClass({
 	},
 	render: function(){
 		return (
-			React.DOM.div({
-				className: 'header',
-				children: [
-					React.DOM.ul({
-						className: 'nav nav-pills pull-right',
-						children: [
-							MenuItem({ name: 'Statistik', isActive: true }),
-							MenuItem({ name: 'Spela match' }),
-							MenuItem({ name: 'Lägg till spelare' })]
-					}),
-					React.DOM.h3({
-						className: 'text-muted',
-						children: 'Pingisstegen'
-					})]
-				})
+				<div className="header">
+					<ul className="nav nav-pills pull-right">
+						<MenuItem name="Statistik" isActive="true" />
+						<MenuItem name="Ny spelare" isActive="false" />
+						<MenuItem name="Spela match" isActive="false" />
+					</ul>
+					<h3 className="text-muted">{this.props.projectName}</h3>
+				</div>
 			);
 	}
 });
