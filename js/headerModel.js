@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+'use strict';
 var MenuItem = require('./menuItem');
 
 var Header = React.createClass({
