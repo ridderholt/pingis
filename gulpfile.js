@@ -1,13 +1,13 @@
 var gulp = require('gulp'),
-	uglify = require('gulp-uglify'),
 	browserify = require('gulp-browserify'),
 	watch = require('gulp-watch'),
-	css = require('gulp-minify-css');
+	css = require('gulp-minify-css'),
+	react = require('gulp-react');
 
-gulp.task('uglify', function(){
+gulp.task('react', function(){
 	gulp.src('./js/*.js')
-		.pipe(uglify({}))
-		.pipe(gulp.dest('./js/dist'));
+		.pipe(react())
+		.pipe(gulp.dest('./js/react'));
 });
 
 gulp.task('css', function(){
@@ -18,7 +18,7 @@ gulp.task('css', function(){
 
 gulp.task('scripts', function(){
 
-	return gulp.src('./js/*.js')
+	return gulp.src('./js/react/*.js')
 		.pipe(browserify({
 			insertGlobals: false,
 			debug: false,
@@ -35,4 +35,4 @@ gulp.task('watch', function(){
 	})
 });
 
-gulp.task('default', ['scripts', 'uglify', 'css', 'watch']);
+gulp.task('default', ['react', 'scripts', 'css']);
