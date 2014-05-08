@@ -1,3 +1,7 @@
+'use strict';
+
+
+/*global module:true, React: true*/
 
 module.exports = React.createClass({
 	render: function(){

@@ -1,6 +1,9 @@
+'use strict';
+
 var express = require('express'),
 	app = express(),
-	debug = true;
+	debug = true,
+	datalayer = require('./modules/datalayer');
 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -18,6 +21,11 @@ app.get('/', function (req, res) {
 	res.render('index.html', {
 		isDebug: false
 	});
+});
+
+
+app.get('/api/scoreboard', function(req, res){
+	res.json(datalayer.scoreboard.get());
 });
 
 

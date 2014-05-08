@@ -25,6 +25,10 @@ React.renderComponent(
 	Header({ projectName: 'Pingisstegen' }),
 	document.getElementById('headerContainer'));
 },{"./menuItem":2}],2:[function(require,module,exports){
+'use strict';
+
+
+/*global module:true, React: true*/
 
 module.exports = React.createClass({
 	render: function(){

@@ -1,20 +1,12 @@
-var ScoreboardRow = React.createClass({
+/** @jsx React.DOM */
+var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	render: function () {
 		return (
-
-			React.DOM.tr({
-				children: [
-					React.DOM.td({
-						children: '1'
-					}),
-					React.DOM.td({
-						children: 'Robin'
-					}),
-					React.DOM.td({
-						children: '173'
-					})]
-			})
-
+				React.DOM.tr(null, 
+					React.DOM.td(null, this.props.data.position),
+					React.DOM.td(null, this.props.data.name),
+					React.DOM.td(null, this.props.data.score)
+				)
 			);
 	}
 });
