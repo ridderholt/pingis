@@ -11,9 +11,9 @@ var Header = React.createClass({displayName: 'Header',
 		return (
 				React.DOM.div( {className:"header"}, 
 					React.DOM.ul( {className:"nav nav-pills pull-right"}, 
-						MenuItem( {name:"Statistik", isActive:"true"} ),
-						MenuItem( {name:"Ny spelare", isActive:"false"} ),
-						MenuItem( {name:"Spela match", isActive:"false"} )
+						MenuItem( {name:"Statistik", href:"/", isActive:"{this.props.activeMenu == 'Statistik'}"} ),
+						MenuItem( {name:"Ny spelare", href:"http://localhost:1337/Player", isActive:"false"} ),
+						MenuItem( {name:"Spela match", href:"/", isActive:"false"} )
 					),
 					React.DOM.h3( {className:"text-muted"}, this.props.projectName)
 				)
@@ -22,7 +22,7 @@ var Header = React.createClass({displayName: 'Header',
 });
 
 React.renderComponent(
-	Header({ projectName: 'Pingisstegen' }),
+	Header({ projectName: 'Pingisstegen', activeMenu: 'Statistik' }),
 	document.getElementById('headerContainer'));
 },{"./menuItem":2}],2:[function(require,module,exports){
 'use strict';
@@ -34,9 +34,9 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			React.DOM.li({
-				className: this.props.isActive === 'true' ? 'active' : '',
+				className: this.props.isActive === true ? 'active' : '',
 				children: React.DOM.a({
-					href: '#',
+					href: this.props.href,
 					children: this.props.name
 				})
 			}));

@@ -10,9 +10,9 @@ var Header = React.createClass({
 		return (
 				<div className="header">
 					<ul className="nav nav-pills pull-right">
-						<MenuItem name="Statistik" isActive="true" />
-						<MenuItem name="Ny spelare" isActive="false" />
-						<MenuItem name="Spela match" isActive="false" />
+						<MenuItem name="Statistik" href="/" isActive="{this.props.activeMenu === 'Statistik'}" />
+						<MenuItem name="Ny spelare" href="http://localhost:1337/Player" isActive="false" />
+						<MenuItem name="Spela match" href="/" isActive="false" />
 					</ul>
 					<h3 className="text-muted">{this.props.projectName}</h3>
 				</div>
@@ -21,5 +21,5 @@ var Header = React.createClass({
 });
 
 React.renderComponent(
-	Header({ projectName: 'Pingisstegen' }),
+	Header({ projectName: 'Pingisstegen', activeMenu: 'Statistik' }),
 	document.getElementById('headerContainer'));

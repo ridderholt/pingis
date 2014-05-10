@@ -12,7 +12,6 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
  	},
 	componentDidMount: function() {
 		$.getJSON(this.props.source, function(result) {
-			console.log(result);
 			this.setState({
 				rows: result
 			});

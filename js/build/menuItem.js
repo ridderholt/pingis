@@ -8,9 +8,9 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			React.DOM.li({
-				className: this.props.isActive === 'true' ? 'active' : '',
+				className: this.props.isActive === true ? 'active' : '',
 				children: React.DOM.a({
-					href: '#',
+					href: this.props.href,
 					children: this.props.name
 				})
 			}));

@@ -23,6 +23,10 @@ app.get('/', function (req, res) {
 	});
 });
 
+app.get('/player', function(req, res){
+	res.render('player.html');
+});
+
 
 app.get('/api/scoreboard', function(req, res){
 	res.json(datalayer.scoreboard.get());
