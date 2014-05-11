@@ -2,17 +2,18 @@
 'use strict';
 var MenuItem = require('./menuItem');
 
-var Header = React.createClass({displayName: 'Header',
+module.exports = React.createClass({displayName: 'exports',
 	getInitialState: function() {
 		return {data: []};
 	},
 	render: function(){
+		var items = this.props.menuItems.map(function(item){
+			return MenuItem( {name:item.name, href:item.url, isActive:item.isActive} )
+		});
 		return (
 				React.DOM.div( {className:"header"}, 
 					React.DOM.ul( {className:"nav nav-pills pull-right"}, 
-						MenuItem( {name:"Statistik", href:"/", isActive:"{this.props.activeMenu == 'Statistik'}"} ),
-						MenuItem( {name:"Ny spelare", href:"http://localhost:1337/Player", isActive:"false"} ),
-						MenuItem( {name:"Spela match", href:"/", isActive:"false"} )
+						items
 					),
 					React.DOM.h3( {className:"text-muted"}, this.props.projectName)
 				)
@@ -20,6 +21,3 @@ var Header = React.createClass({displayName: 'Header',
 	}
 });
 
-React.renderComponent(
-	Header({ projectName: 'Pingisstegen', activeMenu: 'Statistik' }),
-	document.getElementById('headerContainer'));

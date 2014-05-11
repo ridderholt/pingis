@@ -35,4 +35,4 @@ gulp.task('watch', function(){
 		 })).pipe(gulp.dest('./js/build'));
 });
 
-gulp.task('default', ['react', 'scripts']);
+gulp.task('default', ['react', 'scripts', 'css']);

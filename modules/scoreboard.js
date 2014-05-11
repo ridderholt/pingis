@@ -2,8 +2,7 @@
 
 function Scoreboard(){
 
-	this.get = function(){
-		return [{
+	this.players = [{
 			position: 1,
 			name: 'Robin Ridderholt',
 			score: 173
@@ -24,6 +23,13 @@ function Scoreboard(){
 			score: 173
 		}
 		];
+
+	this.get = function(){
+		return this.players;
+	};
+
+	this.add = function(player){
+		this.players.push(player);
 	};
 
 }
