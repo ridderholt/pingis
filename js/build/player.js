@@ -116,12 +116,25 @@ module.exports = React.createClass({displayName: 'exports',
 	onSubmit: function(e){
 		e.preventDefault();
 		var _this = this;
-		console.log(JSON.stringify(this.state));
-		$.post('http://localhost:1337/player', JSON.stringify(this.state), function(){
-			_this.setState({showSuccess: true});
-		}, 'json').fail(function(){
-			_this.setState({showError:true});
+		$.ajax({
+			url: 'http://localhost:1337/player',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(this.state),
+			success: function(){
+				_this.setState({showSuccess: true});
+			},
+			error: function(){
+				_this.setState({showError:true});
+			}
 		});
+		// $.post('http://localhost:1337/player', JSON.stringify(this.state), function(){
+		// 	console.log('success');
+		// 	_this.setState({showSuccess: true});
+		// }, 'json').fail(function(){
+		// 	console.log('error');
+		// 	_this.setState({showError:true});
+		// });
 	},
 	render: function(){
 		return (
