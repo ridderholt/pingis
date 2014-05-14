@@ -13,12 +13,12 @@ React.renderComponent(
 	},
 	{
 		name: 'Ny spelare',
-		url: 'http://localhost:1337/Player',
+		url: '/Player',
 		isActive: true
 	},
 	{
 		name: 'Spela match',
-		url: '/',
+		url: '/Game',
 		isActive: false
 	}
 	] }),
@@ -142,7 +142,7 @@ module.exports = React.createClass({displayName: 'exports',
 					),
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.div( {className:"col-sm-offset-2 col-sm-10"}, 
-							React.DOM.button( {type:"submit", className:"btn btn-default"}, "Spara")
+							React.DOM.button( {type:"submit", className:"btn btn-success"}, "Spara")
 						)
 					)
 				)

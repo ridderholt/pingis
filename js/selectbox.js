@@ -7,7 +7,7 @@ var selectbox = React.createClass({
 			return <option value={item.value}>{item.text}</option>
 		});
 		return (
-				<select>
+				<select className="form-control">
 					{options}
 				</select>
 			);

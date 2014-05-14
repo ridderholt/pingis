@@ -21,13 +21,15 @@ if(debug){
 
 
 app.get('/', function (req, res) {
-	res.render('index.html', {
-		isDebug: false
-	});
+	res.render('index.html');
 });
 
 app.get('/player', function(req, res){
 	res.render('player.html');
+});
+
+app.get('/game', function(req, res){
+	res.render('game.html');
 });
 
 app.post('/player', function(req, res){

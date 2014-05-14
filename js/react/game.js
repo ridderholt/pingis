@@ -1,7 +1,8 @@
 'use strict';
 
 var Header = require('./headerModel'),
-	PlayerForm = require('./playerForm');
+	GameForm = require('./gameForm');
+
 
 React.renderComponent(
 	Header({ projectName: 'Pingisstegen', menuItems: [
@@ -13,14 +14,16 @@ React.renderComponent(
 	{
 		name: 'Ny spelare',
 		url: '/Player',
-		isActive: true
+		isActive: false
 	},
 	{
 		name: 'Spela match',
 		url: '/Game',
-		isActive: false
+		isActive: true
 	}
 	] }),
 	document.getElementById('headerContainer'));
 
-React.renderComponent(PlayerForm(), document.getElementById('player-form'));
+React.renderComponent(
+	GameForm(),
+	document.getElementById('game-container'));

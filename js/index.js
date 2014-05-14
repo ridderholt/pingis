@@ -11,12 +11,12 @@ React.renderComponent(
 	},
 	{
 		name: 'Ny spelare',
-		url: 'http://localhost:1337/Player',
+		url: '/Player',
 		isActive: false
 	},
 	{
 		name: 'Spela match',
-		url: '/',
+		url: '/Game',
 		isActive: false
 	}
 	] }),

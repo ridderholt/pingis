@@ -53,7 +53,7 @@ module.exports = React.createClass({displayName: 'exports',
 					),
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.div( {className:"col-sm-offset-2 col-sm-10"}, 
-							React.DOM.button( {type:"submit", className:"btn btn-default"}, "Spara")
+							React.DOM.button( {type:"submit", className:"btn btn-success"}, "Spara")
 						)
 					)
 				)
