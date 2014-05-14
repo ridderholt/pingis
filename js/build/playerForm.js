@@ -34,13 +34,6 @@ module.exports = React.createClass({displayName: 'exports',
 				_this.setState({showError:true});
 			}
 		});
-		// $.post('http://localhost:1337/player', JSON.stringify(this.state), function(){
-		// 	console.log('success');
-		// 	_this.setState({showSuccess: true});
-		// }, 'json').fail(function(){
-		// 	console.log('error');
-		// 	_this.setState({showError:true});
-		// });
 	},
 	render: function(){
 		return (

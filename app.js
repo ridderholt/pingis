@@ -20,9 +20,7 @@ if(debug){
 
 
 app.get('/', function (req, res) {
-	res.render('index.html', {
-		isDebug: false
-	});
+	res.render('index.html');
 });
 
 app.get('/player', function(req, res){
