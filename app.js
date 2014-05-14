@@ -3,7 +3,8 @@
 var express = require('express'),
 	app = express(),
 	debug = true,
-	datalayer = require('./modules/datalayer'),
+	scoreboard = require('./modules/scoreboard'),
+	players = require('./modules/players'),
 	bodyParser = require('body-parser');
 
 app.set('views', __dirname + '/views');
@@ -30,10 +31,9 @@ app.get('/player', function(req, res){
 app.post('/player', function(req, res){
 	console.log(req.body);
 
-	datalayer.scoreboard.add({
-		name: req.body.firstname + ' ' + req.body.lastname,
-		position: 0,
-		score: 0
+	players.add({
+		firstname: req.body.firstname,
+		lastname: req.body.lastname
 	});
 
 	res.send(200);
@@ -41,7 +41,9 @@ app.post('/player', function(req, res){
 
 
 app.get('/api/scoreboard', function(req, res){
-	res.json(datalayer.scoreboard.get());
+	scoreboard.get(function(results){
+		res.json(results);
+	});
 });
 
 

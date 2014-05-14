@@ -24,21 +24,15 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 },{"./menuItem":2}],2:[function(require,module,exports){
+/** @jsx React.DOM */
 'use strict';
 
-
-/*global module:true, React: true*/
-
-module.exports = React.createClass({
+module.exports = React.createClass({displayName: 'exports',
 	render: function(){
+		var css = this.props.isActive === true ? 'active' : '';
 		return (
-			React.DOM.li({
-				className: this.props.isActive === true ? 'active' : '',
-				children: React.DOM.a({
-					href: this.props.href,
-					children: this.props.name
-				})
-			}));
+			React.DOM.li( {className:css}, React.DOM.a( {href:this.props.href}, this.props.name))
+			);
 	}
 });
 },{}]},{},[1])

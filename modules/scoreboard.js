@@ -1,37 +1,21 @@
 'use strict';
 
-function Scoreboard(){
+var db = require('./datalayer');
 
-	this.players = [{
-			position: 1,
-			name: 'Robin Ridderholt',
-			score: 173
-		},
-		{
-			position: 2,
-			name: 'Herman Oscarsson',
-			score: 173
-		},
-		{
-			position: 3,
-			name: 'Oskar Gustafsson',
-			score: 173
-		},
-		{
-			position: 4,
-			name: 'Johan Berglund',
-			score: 173
-		}
-		];
+function Scoreboards(){
+	var self = this;
 
-	this.get = function(){
-		return this.players;
+	self.get = function(callback){
+		db.connect(function(connection){
+			var scoreboards = connection.collection('scoreboards')
+										.find()
+										.toArray(function(err, results){
+											callback(results);
+										});
+		});
 	};
 
-	this.add = function(player){
-		this.players.push(player);
-	};
-
+	return self;
 }
 
-module.exports = new Scoreboard();
+module.exports = new Scoreboards();
