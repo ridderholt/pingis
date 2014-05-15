@@ -7,7 +7,7 @@ var ScoreboardRow = React.createClass({
 					<td>{this.props.data.name}</td>
 					<td>10</td>
 					<td>2</td>
-					<td>5</td>
+					<td>7</td>
 					<td>{this.props.data.score}</td>
 				</tr>
 			);

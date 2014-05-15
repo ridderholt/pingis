@@ -27,12 +27,7 @@ gulp.task('scripts', ['react'], function(){
 });
 
 gulp.task('watch', function(){
-	watch({glob: './js/*.js'})
-		 .pipe(react())
-		 .pipe(browserify({
-		 	insertGlobals: false,
-		 	debug: false
-		 })).pipe(gulp.dest('./js/build'));
+	gulp.watch('./js/*.js', ['react', 'scripts']);
 });
 
 gulp.task('default', ['react', 'scripts', 'css']);

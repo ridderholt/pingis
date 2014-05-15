@@ -7,7 +7,7 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 					React.DOM.td(null, this.props.data.name),
 					React.DOM.td(null, "10"),
 					React.DOM.td(null, "2"),
-					React.DOM.td(null, "5"),
+					React.DOM.td(null, "7"),
 					React.DOM.td(null, this.props.data.score)
 				)
 			);

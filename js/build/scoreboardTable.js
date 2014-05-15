@@ -2,7 +2,8 @@
 /** @jsx React.DOM */
 'use strict';
 
-var ScoreboardRow = require('./scoreboardRow');
+var ScoreboardRow = require('./scoreboardRow'),
+	ReactKey = require('./react-key');
 
 var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 	getInitialState: function() {
@@ -19,7 +20,7 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 	},
 	render: function(){
 		var rows = this.state.rows.map(function(row){
-			return ScoreboardRow( {data:row});
+			return ScoreboardRow( {key:ReactKey.key(), data:row});
 		});
 		return (
 			React.DOM.table( {className:"table table-striped"}, 
@@ -45,7 +46,17 @@ React.renderComponent(
 	ScoreboardTable({ source: '//localhost:1337/api/scoreboard' }),
 	document.getElementById('scoreboard-contaier'));
 
-},{"./scoreboardRow":2}],2:[function(require,module,exports){
+},{"./react-key":2,"./scoreboardRow":3}],2:[function(require,module,exports){
+'use strict';
+
+function ReactKey(){
+	this.key = function(){
+		return Math.random() * 10000;
+	}
+}
+
+module.exports = new ReactKey();
+},{}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	render: function () {
@@ -55,7 +66,7 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 					React.DOM.td(null, this.props.data.name),
 					React.DOM.td(null, "10"),
 					React.DOM.td(null, "2"),
-					React.DOM.td(null, "5"),
+					React.DOM.td(null, "7"),
 					React.DOM.td(null, this.props.data.score)
 				)
 			);

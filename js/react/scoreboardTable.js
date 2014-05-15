@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 'use strict';
 
-var ScoreboardRow = require('./scoreboardRow');
+var ScoreboardRow = require('./scoreboardRow'),
+	ReactKey = require('./react-key');
 
 var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 	getInitialState: function() {
@@ -18,7 +19,7 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 	},
 	render: function(){
 		var rows = this.state.rows.map(function(row){
-			return ScoreboardRow( {data:row});
+			return ScoreboardRow( {key:ReactKey.key(), data:row});
 		});
 		return (
 			React.DOM.table( {className:"table table-striped"}, 
