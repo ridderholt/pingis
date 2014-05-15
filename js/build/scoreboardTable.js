@@ -27,6 +27,9 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 					React.DOM.tr(null, 
 						React.DOM.th(null, "#"),
 						React.DOM.th(null, "Namn"),
+						React.DOM.th(null, "Vinster"),
+						React.DOM.th(null, "Förluster"),
+						React.DOM.th(null, "Obesegrad"),
 						React.DOM.th(null, "Poäng")
 					)
 				),
@@ -50,6 +53,9 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 				React.DOM.tr(null, 
 					React.DOM.td(null, this.props.data.position),
 					React.DOM.td(null, this.props.data.name),
+					React.DOM.td(null, "10"),
+					React.DOM.td(null, "2"),
+					React.DOM.td(null, "5"),
 					React.DOM.td(null, this.props.data.score)
 				)
 			);

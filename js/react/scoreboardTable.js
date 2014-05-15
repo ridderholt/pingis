@@ -26,6 +26,9 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 					React.DOM.tr(null, 
 						React.DOM.th(null, "#"),
 						React.DOM.th(null, "Namn"),
+						React.DOM.th(null, "Vinster"),
+						React.DOM.th(null, "Förluster"),
+						React.DOM.th(null, "Obesegrad"),
 						React.DOM.th(null, "Poäng")
 					)
 				),
