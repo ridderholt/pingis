@@ -19,7 +19,7 @@ module.exports = React.createClass({
 							<span className="icon-bar"></span>
 							<span className="icon-bar"></span>
 						</button>
-						<a href="/" className="navbar-brand">{this.props.projectName}</a>
+						<img className="logo" src="/img/lagetSe.png" alt={this.props.projectName} />
 					</div>
 					<div className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">

@@ -14,9 +14,11 @@ app.use(bodyParser());
 if(debug){
 	app.use('/css', express.static(__dirname + '/css'));
 	app.use('/js', express.static(__dirname + '/js/build'));
+	app.use('/img', express.static(__dirname + '/img'));
 } else {
 	app.use('/css', express.static(__dirname + '/css/dist'));
 	app.use('/js', express.static(__dirname + '/js/dist'));
+	app.use('/img', express.static(__dirname + '/img'));
 }
 
 
