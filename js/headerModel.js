@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
-var MenuItem = require('./menuItem');
+var MenuItem = require('./menuItem'),
+	ReactKey = require('./react-key');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -8,7 +9,7 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		var items = this.props.menuItems.map(function(item){
-			return <MenuItem name={item.name} href={item.url} isActive={item.isActive} />
+			return <MenuItem key={ReactKey.key()} name={item.name} href={item.url} isActive={item.isActive} />
 		});
 		return (
 			 <div className="navbar navbar-fixed-top navbar-inverse" role="navigation">

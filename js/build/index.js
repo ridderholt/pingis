@@ -31,7 +31,8 @@ React.renderComponent(
 },{"./headerModel":2,"./scoreboardTable":6}],2:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
-var MenuItem = require('./menuItem');
+var MenuItem = require('./menuItem'),
+	ReactKey = require('./react-key');
 
 module.exports = React.createClass({displayName: 'exports',
 	getInitialState: function() {
@@ -39,7 +40,7 @@ module.exports = React.createClass({displayName: 'exports',
 	},
 	render: function(){
 		var items = this.props.menuItems.map(function(item){
-			return MenuItem( {name:item.name, href:item.url, isActive:item.isActive} )
+			return MenuItem( {key:ReactKey.key(), name:item.name, href:item.url, isActive:item.isActive} )
 		});
 		return (
 			 React.DOM.div( {className:"navbar navbar-fixed-top navbar-inverse", role:"navigation"}, 
@@ -64,7 +65,7 @@ module.exports = React.createClass({displayName: 'exports',
 });
 
 
-},{"./menuItem":3}],3:[function(require,module,exports){
+},{"./menuItem":3,"./react-key":4}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 

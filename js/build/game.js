@@ -37,13 +37,23 @@ var SelectBox = require('./selectbox');
 var gameForm = React.createClass({displayName: 'gameForm',
 	getInitialState: function(){
 		return {
-			players: []
+			players: [],
+			winner: '',
+			looser: ''
 		};
+	},
+	onWinnerSelected: function(e){
+		console.log(e.target.value);
+		this.setState({winner: e.target.value});
+	},
+	onLooserSelected: function(e){
+		console.log(e.target.value);
+		this.setState({looser: e.target.value});
 	},
 	componentDidMount: function() {
 		$.getJSON(this.props.source, function(result) {
 			this.setState({
-				players: result
+				players: result,
 			});
 		}.bind(this));
 	},
@@ -53,13 +63,13 @@ var gameForm = React.createClass({displayName: 'gameForm',
 				React.DOM.div( {className:"form-group"}, 
 					React.DOM.label( {htmlFor:"winner", className:"col-sm-2 control-label"}, "Vinnare"),
 					React.DOM.div( {className:"col-sm-10"}, 
-						SelectBox( {items:this.state.players} )
+						SelectBox( {selectedValue:this.state.winner, onChange:this.onWinnerSelected, items:this.state.players} )
 					)
 				),
 				React.DOM.div( {className:"form-group"}, 
 					React.DOM.label( {htmlFor:"looser", className:"col-sm-2 control-label"}, "Förlorare"),
 					React.DOM.div( {className:"col-sm-10"}, 
-						SelectBox( {items:this.state.players} )
+						SelectBox( {selectedValue:this.state.looser, onChange:this.onLooserSelected, items:this.state.players} )
 					)
 				),
 				React.DOM.div( {className:"form-group"}, 
@@ -76,7 +86,8 @@ module.exports = gameForm;
 },{"./selectbox":6}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
-var MenuItem = require('./menuItem');
+var MenuItem = require('./menuItem'),
+	ReactKey = require('./react-key');
 
 module.exports = React.createClass({displayName: 'exports',
 	getInitialState: function() {
@@ -84,7 +95,7 @@ module.exports = React.createClass({displayName: 'exports',
 	},
 	render: function(){
 		var items = this.props.menuItems.map(function(item){
-			return MenuItem( {name:item.name, href:item.url, isActive:item.isActive} )
+			return MenuItem( {key:ReactKey.key(), name:item.name, href:item.url, isActive:item.isActive} )
 		});
 		return (
 			 React.DOM.div( {className:"navbar navbar-fixed-top navbar-inverse", role:"navigation"}, 
@@ -109,7 +120,7 @@ module.exports = React.createClass({displayName: 'exports',
 });
 
 
-},{"./menuItem":4}],4:[function(require,module,exports){
+},{"./menuItem":4,"./react-key":5}],4:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 
@@ -139,11 +150,13 @@ var ReactKey = require('./react-key')
 
 var selectbox = React.createClass({displayName: 'selectbox',
 	render: function(){
+		var _this = this;
 		var options = this.props.items.map(function(item){
-			return React.DOM.option( {key:ReactKey.key(), value:item.value}, item.text)
+			var isSelected = item.value === _this.props.selectedValue;
+			return React.DOM.option( {key:ReactKey.key(), selected:isSelected, value:item.value}, item.text)
 		});
 		return (
-				React.DOM.select( {className:"form-control"}, 
+				React.DOM.select( {onChange:this.props.onChange, className:"form-control"}, 
 					options
 				)
 			);
