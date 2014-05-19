@@ -1,6 +1,7 @@
 'use strict';
 
-var Header = require('./headerModel');
+var Header = require('./headerModel'),
+	ScoreboardTable = require('./scoreboardTable');
 
 React.renderComponent(
 	Header({ projectName: 'Pingisstegen', menuItems: [
@@ -21,3 +22,7 @@ React.renderComponent(
 	}
 	] }),
 	document.getElementById('headerContainer'));
+
+React.renderComponent(
+	ScoreboardTable({ source: '/api/scoreboard' }),
+	document.getElementById('scoreboard-contaier'));

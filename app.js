@@ -52,6 +52,13 @@ app.get('/api/scoreboard', function(req, res){
 	});
 });
 
+app.get('/api/players', function(req, res){
+	players.getAll(function(data){
+		res.json(data);
+	}, function(player){
+		return { text: player.firstname + ' ' + player.lastname, value: player._id };
+	});
+});
 
 var server = app.listen(1337, function(){
 	console.log('Server is up');

@@ -41,6 +41,4 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 	}
 });
 
-React.renderComponent(
-	ScoreboardTable({ source: '//localhost:1337/api/scoreboard' }),
-	document.getElementById('scoreboard-contaier'));
+module.exports = ScoreboardTable;

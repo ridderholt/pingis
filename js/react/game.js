@@ -25,5 +25,5 @@ React.renderComponent(
 	document.getElementById('headerContainer'));
 
 React.renderComponent(
-	GameForm(),
+	GameForm({ source: '/api/players' }),
 	document.getElementById('game-container'));

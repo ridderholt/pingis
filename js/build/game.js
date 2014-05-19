@@ -26,7 +26,7 @@ React.renderComponent(
 	document.getElementById('headerContainer'));
 
 React.renderComponent(
-	GameForm(),
+	GameForm({ source: '/api/players' }),
 	document.getElementById('game-container'));
 },{"./gameForm":2,"./headerModel":3}],2:[function(require,module,exports){
 /** @jsx React.DOM */
@@ -37,8 +37,15 @@ var SelectBox = require('./selectbox');
 var gameForm = React.createClass({displayName: 'gameForm',
 	getInitialState: function(){
 		return {
-
+			players: []
 		};
+	},
+	componentDidMount: function() {
+		$.getJSON(this.props.source, function(result) {
+			this.setState({
+				players: result
+			});
+		}.bind(this));
 	},
 	render: function(){
 		return (
@@ -46,13 +53,13 @@ var gameForm = React.createClass({displayName: 'gameForm',
 				React.DOM.div( {className:"form-group"}, 
 					React.DOM.label( {htmlFor:"winner", className:"col-sm-2 control-label"}, "Vinnare"),
 					React.DOM.div( {className:"col-sm-10"}, 
-						SelectBox( {items:[{ text: 'Robin Ridderholt', value: 1 }]} )
+						SelectBox( {items:this.state.players} )
 					)
 				),
 				React.DOM.div( {className:"form-group"}, 
 					React.DOM.label( {htmlFor:"looser", className:"col-sm-2 control-label"}, "Förlorare"),
 					React.DOM.div( {className:"col-sm-10"}, 
-						SelectBox( {items:[{ text: 'Robin Ridderholt', value: 1 }]} )
+						SelectBox( {items:this.state.players} )
 					)
 				),
 				React.DOM.div( {className:"form-group"}, 
@@ -66,7 +73,7 @@ var gameForm = React.createClass({displayName: 'gameForm',
 });
 
 module.exports = gameForm;
-},{"./selectbox":5}],3:[function(require,module,exports){
+},{"./selectbox":6}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 var MenuItem = require('./menuItem');
@@ -115,13 +122,25 @@ module.exports = React.createClass({displayName: 'exports',
 	}
 });
 },{}],5:[function(require,module,exports){
+'use strict';
+
+function ReactKey(){
+	this.key = function(){
+		return Math.random() * 10000;
+	}
+}
+
+module.exports = new ReactKey();
+},{}],6:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
+
+var ReactKey = require('./react-key')
 
 var selectbox = React.createClass({displayName: 'selectbox',
 	render: function(){
 		var options = this.props.items.map(function(item){
-			return React.DOM.option( {value:item.value}, item.text)
+			return React.DOM.option( {key:ReactKey.key(), value:item.value}, item.text)
 		});
 		return (
 				React.DOM.select( {className:"form-control"}, 
@@ -132,4 +151,4 @@ var selectbox = React.createClass({displayName: 'selectbox',
 });
 
 module.exports = selectbox;
-},{}]},{},[1])
+},{"./react-key":5}]},{},[1])
