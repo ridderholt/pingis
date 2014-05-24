@@ -5,7 +5,7 @@ var Header = require('./headerModel'),
 
 
 React.renderComponent(
-	Header({ projectName: 'Pingisstegen', menuItems: [
+	new Header({ projectName: 'Pingisstegen', menuItems: [
 	{
 		name: 'Statistik',
 		url: '/',
@@ -25,5 +25,5 @@ React.renderComponent(
 	document.getElementById('headerContainer'));
 
 React.renderComponent(
-	GameForm({ source: '/api/players' }),
+	new GameForm({ source: '/api/players' }),
 	document.getElementById('game-container'));

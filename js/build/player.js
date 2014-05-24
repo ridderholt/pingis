@@ -38,7 +38,7 @@ module.exports = React.createClass({displayName: 'exports',
 	},
 	render: function(){
 		var items = this.props.menuItems.map(function(item){
-			return MenuItem( {key:ReactKey.key(), name:item.name, href:item.url, isActive:item.isActive} )
+			return MenuItem( {key:ReactKey.key(), name:item.name, href:item.url, isActive:item.isActive} );
 		});
 		return (
 			 React.DOM.div( {className:"navbar navbar-fixed-top navbar-inverse", role:"navigation"}, 
@@ -66,6 +66,8 @@ module.exports = React.createClass({displayName: 'exports',
 },{"./menuItem":3,"./react-key":6}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
+
+/*jshint asi: false*/
 
 module.exports = React.createClass({displayName: 'exports',
 	render: function(){
@@ -168,7 +170,7 @@ module.exports = React.createClass({displayName: 'exports',
 function ReactKey(){
 	this.key = function(){
 		return Math.random() * 10000;
-	}
+	};
 }
 
 module.exports = new ReactKey();

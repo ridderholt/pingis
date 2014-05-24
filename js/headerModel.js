@@ -9,7 +9,7 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		var items = this.props.menuItems.map(function(item){
-			return <MenuItem key={ReactKey.key()} name={item.name} href={item.url} isActive={item.isActive} />
+			return <MenuItem key={ReactKey.key()} name={item.name} href={item.url} isActive={item.isActive} />;
 		});
 		return (
 			 <div className="navbar navbar-fixed-top navbar-inverse" role="navigation">

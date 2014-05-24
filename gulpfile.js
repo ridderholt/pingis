@@ -4,7 +4,8 @@ var gulp = require('gulp'),
 	browserify = require('gulp-browserify'),
 	watch = require('gulp-watch'),
 	css = require('gulp-minify-css'),
-	react = require('gulp-react');
+	react = require('gulp-react'),
+	jshint = require('gulp-jshint');
 
 gulp.task('react', function(){
 	return gulp.src('./js/*.js')
@@ -24,6 +25,12 @@ gulp.task('scripts', ['react'], function(){
 		insertGlobals: false,
 		debug: false
 	})).pipe(gulp.dest('./js/build'));
+});
+
+gulp.task('jshint', function(){
+	gulp.src('./js/react/*.js')
+		.pipe(jshint())
+		.pipe(jshint.reporter());
 });
 
 gulp.task('watch', function(){

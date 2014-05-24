@@ -2,14 +2,14 @@
 /** @jsx React.DOM */
 'use strict';
 
-var ReactKey = require('./react-key')
+var ReactKey = require('./react-key');
 
 var selectbox = React.createClass({displayName: 'selectbox',
 	render: function(){
 		var _this = this;
 		var options = this.props.items.map(function(item){
 			var isSelected = item.value === _this.props.selectedValue;
-			return React.DOM.option( {key:ReactKey.key(), selected:isSelected, value:item.value}, item.text)
+			return React.DOM.option( {key:ReactKey.key(), selected:isSelected, defaultValue:_this.props.selectedValue, value:item.value}, item.text);
 		});
 		return (
 				React.DOM.select( {onChange:this.props.onChange, className:"form-control"}, 
@@ -26,7 +26,7 @@ module.exports = selectbox;
 function ReactKey(){
 	this.key = function(){
 		return Math.random() * 10000;
-	}
+	};
 }
 
 module.exports = new ReactKey();

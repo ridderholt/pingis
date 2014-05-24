@@ -2,23 +2,48 @@
 /** @jsx React.DOM */
 'use strict';
 
-var SelectBox = require('./selectbox');
+var SelectBox = require('./selectbox'),
+	Message = require('./messageModel');
 
 var gameForm = React.createClass({displayName: 'gameForm',
 	getInitialState: function(){
 		return {
 			players: [],
 			winner: '',
-			looser: ''
+			looser: '',
+			message: {
+				type: 'bg-success',
+				text: 'Matchen har sparats',
+				show: false
+			}
 		};
 	},
+	validatePlayers: function(){
+		if(this.state.winner === this.state.looser){
+			this.setState({message: {
+				type: 'bg-danger',
+				text: 'Välj två olika spelare',
+				show: true
+			}});
+			return false;
+		} else {
+			this.setState({
+				message: {
+					show: false
+				}
+			});
+		}
+		return true;
+	},
 	onWinnerSelected: function(e){
-		console.log(e.target.value);
-		this.setState({winner: e.target.value});
+		this.setState({winner: e.target.value}, function(){
+			this.validatePlayers();
+		});
 	},
 	onLooserSelected: function(e){
-		console.log(e.target.value);
-		this.setState({looser: e.target.value});
+		this.setState({looser: e.target.value}, function(){
+			this.validatePlayers();
+		});
 	},
 	componentDidMount: function() {
 		$.getJSON(this.props.source, function(result) {
@@ -30,6 +55,7 @@ var gameForm = React.createClass({displayName: 'gameForm',
 	render: function(){
 		return (
 			React.DOM.form( {className:"form-horizontal", role:"form"}, 
+				Message( {show:this.state.message.show, messageType:this.state.message.type, message:this.state.message.text} ),
 				React.DOM.div( {className:"form-group"}, 
 					React.DOM.label( {htmlFor:"winner", className:"col-sm-2 control-label"}, "Vinnare"),
 					React.DOM.div( {className:"col-sm-10"}, 
@@ -48,33 +74,56 @@ var gameForm = React.createClass({displayName: 'gameForm',
 					)
 				)
 			)
-			)
+			);
 	}
 });
 
 module.exports = gameForm;
-},{"./selectbox":3}],2:[function(require,module,exports){
+},{"./messageModel":2,"./selectbox":4}],2:[function(require,module,exports){
+/** @jsx React.DOM */
+'use strict';					
+
+module.exports = React.createClass({displayName: 'exports',
+	getInitialState: function(){
+		return {
+			show: false,
+			messageType: 'bg-primary',
+			message: ''
+		};
+	},
+	render: function(){
+		var css = this.props.messageType;
+		if(this.props.show !== true){
+			css += ' hidden';
+		}
+		return(
+				React.DOM.p( {className:css}, this.props.message)
+			);
+	}
+});
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 function ReactKey(){
 	this.key = function(){
 		return Math.random() * 10000;
-	}
+	};
 }
 
 module.exports = new ReactKey();
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 
-var ReactKey = require('./react-key')
+var ReactKey = require('./react-key');
 
 var selectbox = React.createClass({displayName: 'selectbox',
 	render: function(){
 		var _this = this;
 		var options = this.props.items.map(function(item){
 			var isSelected = item.value === _this.props.selectedValue;
-			return React.DOM.option( {key:ReactKey.key(), selected:isSelected, value:item.value}, item.text)
+			return React.DOM.option( {key:ReactKey.key(), selected:isSelected, defaultValue:_this.props.selectedValue, value:item.value}, item.text);
 		});
 		return (
 				React.DOM.select( {onChange:this.props.onChange, className:"form-control"}, 
@@ -85,4 +134,4 @@ var selectbox = React.createClass({displayName: 'selectbox',
 });
 
 module.exports = selectbox;
-},{"./react-key":2}]},{},[1])
+},{"./react-key":3}]},{},[1])

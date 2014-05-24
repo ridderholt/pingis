@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 'use strict';
 
+/*jshint asi: false*/
+
 module.exports = React.createClass({displayName: 'exports',
 	render: function(){
 		var css = this.props.isActive === true ? 'active' : '';
