@@ -2,14 +2,15 @@
 
 var db = require('./datalayer'),
 	ObjectId = require('mongodb').ObjectID,
-	players = require('./players'),
-	_ = require('lodash');
+	players = require('./players');
 
 function Scoreboards(){
 	var self = this;
 
-	var sortBoards = function(board){
-		return -(board.score + board.wins);
+	var getSortOptions = function(){
+		return {
+			sort: [['score', 'desc'], ['wins', 'desc']]
+		};
 	};
 
 	var addPosition = function(boards){
@@ -19,13 +20,13 @@ function Scoreboards(){
 	};
 
 	self.get = function(callback){
+		var options = getSortOptions();
 		db.connect(function(connection){
-			var scoreboards = connection.collection('scoreboards')
-										.find()
+				 connection.collection('scoreboards')
+										.find({}, options)
 										.toArray(function(err, results){
-											var sortedBoards = _.sortBy(results, sortBoards);
-											addPosition(sortedBoards);
-											callback(sortedBoards);
+											addPosition(results);
+											callback(results);
 										});
 		});
 	};
