@@ -75,6 +75,23 @@ var gameForm = React.createClass({displayName: 'gameForm',
 			this.validatePlayers();
 		});
 	},
+	onSubmit: function(e){
+		e.preventDefault();
+		var _this = this;
+		$.ajax({
+			url: '/api/game',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({ winner: this.state.winner, looser: this.state.looser }),
+			success: function(){
+				_this.setState({message: {
+					type: 'bg-success',
+					text: 'Matchen har sparats',
+					show: true
+				}});
+			}
+		});
+	},
 	componentDidMount: function() {
 		$.getJSON(this.props.source, function(result) {
 			this.setState({
@@ -84,7 +101,7 @@ var gameForm = React.createClass({displayName: 'gameForm',
 	},
 	render: function(){
 		return (
-			React.DOM.form( {className:"form-horizontal", role:"form"}, 
+			React.DOM.form( {onSubmit:this.onSubmit, className:"form-horizontal", role:"form"}, 
 				Message( {show:this.state.message.show, messageType:this.state.message.type, message:this.state.message.text} ),
 				React.DOM.div( {className:"form-group"}, 
 					React.DOM.label( {htmlFor:"winner", className:"col-sm-2 control-label"}, "Vinnare"),

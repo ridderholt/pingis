@@ -1,0 +1,11 @@
+{
+	"unused": true,
+	"undef": true,
+	"eqeqeq": true,
+	"supernew": false,
+	"globalstrict": false,
+	"node": true,
+	"nonew": false,
+	"newcap": false,
+	"predef": ["$", "require", "module", "React", "document"]
+}

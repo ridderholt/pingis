@@ -5,6 +5,7 @@ var express = require('express'),
 	debug = true,
 	scoreboard = require('./modules/scoreboard'),
 	players = require('./modules/players'),
+	games = require('./modules/game'),
 	bodyParser = require('body-parser');
 
 app.set('views', __dirname + '/views');
@@ -57,6 +58,14 @@ app.get('/api/players', function(req, res){
 		res.json(data);
 	}, function(player){
 		return { text: player.firstname + ' ' + player.lastname, value: player._id };
+	});
+});
+
+app.post('/api/game', function(req, res){
+	console.log(req.body);
+
+	games.newGame({ winner: req.body.winner, looser: req.body.looser }, function(){
+		res.send(200);
 	});
 });
 

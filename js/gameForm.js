@@ -44,6 +44,23 @@ var gameForm = React.createClass({
 			this.validatePlayers();
 		});
 	},
+	onSubmit: function(e){
+		e.preventDefault();
+		var _this = this;
+		$.ajax({
+			url: '/api/game',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({ winner: this.state.winner, looser: this.state.looser }),
+			success: function(){
+				_this.setState({message: {
+					type: 'bg-success',
+					text: 'Matchen har sparats',
+					show: true
+				}});
+			}
+		});
+	},
 	componentDidMount: function() {
 		$.getJSON(this.props.source, function(result) {
 			this.setState({
@@ -53,7 +70,7 @@ var gameForm = React.createClass({
 	},
 	render: function(){
 		return (
-			<form className="form-horizontal" role="form">
+			<form onSubmit={this.onSubmit} className="form-horizontal" role="form">
 				<Message show={this.state.message.show} messageType={this.state.message.type} message={this.state.message.text} />
 				<div className="form-group">
 					<label htmlFor="winner" className="col-sm-2 control-label">Vinnare</label>
