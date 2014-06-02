@@ -56,15 +56,17 @@ function ReactKey(){
 module.exports = new ReactKey();
 },{}],3:[function(require,module,exports){
 /** @jsx React.DOM */
+'use strict';
+
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	render: function () {
 		return (
 				React.DOM.tr(null, 
-					React.DOM.td(null, this.props.data.position),
+					React.DOM.td(null, "1"),
 					React.DOM.td(null, this.props.data.name),
-					React.DOM.td(null, "10"),
-					React.DOM.td(null, "2"),
-					React.DOM.td(null, "7"),
+					React.DOM.td(null, this.props.data.wins),
+					React.DOM.td(null, this.props.data.losses),
+					React.DOM.td(null, this.props.data.winStreak),
 					React.DOM.td(null, this.props.data.score)
 				)
 			);

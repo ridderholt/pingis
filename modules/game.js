@@ -90,6 +90,8 @@ Game.prototype._updateScoreboards = function(game, callback) {
 			return;
 		}
 
+		_this._onScoreboards(winnerBoard, looserBoard);
+
 		scoreboards = _this.connection.collection('scoreboards');
 
 		var saveFinished = function(err){
