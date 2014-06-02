@@ -52,7 +52,7 @@ Game.prototype._saveGame = function(game, callback) {
 };
 
 Game.prototype._getScoreboard = function(id, callback) {
-	this.connection.collection('scoreboards').findOne({ _id: new ObjectId(id) }, function(err, item){
+	this.connection.collection('scoreboards').findOne({ playerId: new ObjectId(id) }, function(err, item){
 		if(item === null){
 			sb.create(id, callback);
 		} else {
