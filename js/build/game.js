@@ -94,6 +94,7 @@ var gameForm = React.createClass({displayName: 'gameForm',
 	},
 	componentDidMount: function() {
 		$.getJSON(this.props.source, function(result) {
+			result.splice(0, 0, {value: '', text: '- Välj spelare -'});
 			this.setState({
 				players: result,
 			});

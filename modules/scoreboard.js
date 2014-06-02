@@ -9,7 +9,7 @@ function Scoreboards(){
 	var self = this;
 
 	var sortBoards = function(board){
-		return -board.score;
+		return -(board.score + board.wins);
 	};
 
 	var addPosition = function(boards){
