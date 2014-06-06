@@ -26,6 +26,7 @@ var ScoreboardTable = React.createClass({
 				<thead>
 					<tr>
 						<th>#</th>
+						<th>&nbsp;</th>
 						<th>Namn</th>
 						<th>Vinster</th>
 						<th>Förluster</th>

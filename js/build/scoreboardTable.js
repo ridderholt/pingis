@@ -27,6 +27,7 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 				React.DOM.thead(null, 
 					React.DOM.tr(null, 
 						React.DOM.th(null, "#"),
+						React.DOM.th(null, " "),
 						React.DOM.th(null, "Namn"),
 						React.DOM.th(null, "Vinster"),
 						React.DOM.th(null, "Förluster"),
@@ -60,9 +61,27 @@ module.exports = new ReactKey();
 
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	render: function () {
+
+		var imgDivStyle = {
+			borderRadius: '50px',
+			position: 'relative',
+			overflow: 'hidden',
+			width: '100px',
+			height: '100px'
+		};
+
+		var imgStyle = {
+			width: '100px'
+		};
+
 		return (
 				React.DOM.tr(null, 
 					React.DOM.td(null, this.props.data.position),
+					React.DOM.td(null, 
+						React.DOM.div( {style:imgDivStyle}, 
+							React.DOM.img( {style:imgStyle, src:this.props.data.imageUrl} )
+						)
+					),
 					React.DOM.td(null, this.props.data.name),
 					React.DOM.td(null, this.props.data.wins),
 					React.DOM.td(null, this.props.data.losses),
