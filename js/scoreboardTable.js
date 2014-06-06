@@ -22,16 +22,12 @@ var ScoreboardTable = React.createClass({
 			return <ScoreboardRow key={ReactKey.key()} data={row}></ScoreboardRow>;
 		});
 		return (
-			<table className="table table-striped">
+			<table className="scoreboard table table-striped">
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>&nbsp;</th>
-						<th>Namn</th>
-						<th>Vinster</th>
-						<th>Förluster</th>
-						<th>Obesegrad</th>
-						<th>Poäng</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>

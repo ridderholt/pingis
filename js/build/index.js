@@ -110,17 +110,13 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 
 		return (
 				React.DOM.tr(null, 
-					React.DOM.td(null, this.props.data.position),
+					React.DOM.td(null, "#",this.props.data.position),
 					React.DOM.td(null, 
 						React.DOM.div( {style:imgDivStyle}, 
 							React.DOM.img( {style:imgStyle, src:this.props.data.imageUrl} )
 						)
 					),
-					React.DOM.td(null, this.props.data.name),
-					React.DOM.td(null, this.props.data.wins),
-					React.DOM.td(null, this.props.data.losses),
-					React.DOM.td(null, this.props.data.winStreak),
-					React.DOM.td(null, this.props.data.score)
+					React.DOM.td(null, this.props.data.name)
 				)
 			);
 	}
@@ -152,16 +148,12 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 			return ScoreboardRow( {key:ReactKey.key(), data:row});
 		});
 		return (
-			React.DOM.table( {className:"table table-striped"}, 
+			React.DOM.table( {className:"scoreboard table table-striped"}, 
 				React.DOM.thead(null, 
 					React.DOM.tr(null, 
-						React.DOM.th(null, "#"),
 						React.DOM.th(null, " "),
-						React.DOM.th(null, "Namn"),
-						React.DOM.th(null, "Vinster"),
-						React.DOM.th(null, "Förluster"),
-						React.DOM.th(null, "Obesegrad"),
-						React.DOM.th(null, "Poäng")
+						React.DOM.th(null, " "),
+						React.DOM.th(null, " ")
 					)
 				),
 				React.DOM.tbody(null, 
