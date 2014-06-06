@@ -6,7 +6,8 @@ var express = require('express'),
 	scoreboard = require('./modules/scoreboard'),
 	players = require('./modules/players'),
 	games = require('./modules/game'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	spawn = require('child_process').spawn;
 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -35,12 +36,11 @@ app.get('/game', function(req, res){
 	res.render('game.html');
 });
 
-app.post('/player', function(req, res){
-	console.log(req.body);
-
+app.post('/api/player', function(req, res){
 	players.add({
 		firstname: req.body.firstname,
-		lastname: req.body.lastname
+		lastname: req.body.lastname,
+		imageUrl: req.body.imageUrl
 	});
 
 	res.send(200);
@@ -62,11 +62,14 @@ app.get('/api/players', function(req, res){
 });
 
 app.post('/api/game', function(req, res){
-	console.log(req.body);
-
 	games.newGame({ winner: req.body.winner, looser: req.body.looser }, function(){
 		res.send(200);
 	});
+});
+
+app.get('/api/test', function(req, res){
+	spawn('node', ['modules/task.js']);
+	res.send(200);
 });
 
 var server = app.listen(1337, function(){

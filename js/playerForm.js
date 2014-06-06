@@ -8,6 +8,7 @@ module.exports = React.createClass({
 		return {
 			firstname: '',
 			lastname: '',
+			imageUrl: '',
 			showError: false,
 			showSuccess: false
 		};
@@ -18,11 +19,14 @@ module.exports = React.createClass({
 	onLastnameChange: function(e){
 		this.setState({lastname: e.target.value});
 	},
+	onImageUrlChange: function(e){
+		this.setState({imageUrl: e.target.value});
+	},
 	onSubmit: function(e){
 		e.preventDefault();
 		var _this = this;
 		$.ajax({
-			url: 'http://localhost:1337/player',
+			url: '/api/player',
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(this.state),
@@ -49,6 +53,12 @@ module.exports = React.createClass({
 						<label for="lastname" className="col-sm-2 control-label">Efternamn</label>
 						<div className="col-sm-10">
 							<input type="text" onChange={this.onLastnameChange} className="form-control" placeholder="Efternamn" id="lastname" />
+						</div>
+					</div>
+					<div className="form-group">
+						<label for="image-url" className="col-sm-2 control-label">Bild</label>
+						<div className="col-sm-10">
+							<input id="image-url" name="image-url" type="text" onChange={this.onImageUrlChange} className="form-control" placeholder="http://" />
 						</div>
 					</div>
 					<div className="form-group">
