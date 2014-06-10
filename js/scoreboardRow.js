@@ -18,17 +18,16 @@ var ScoreboardRow = React.createClass({
 
 		return (
 				<tr>
-					<td>{this.props.data.position}</td>
+					<td>#{this.props.data.position}</td>
 					<td>
 						<div style={imgDivStyle}>
 							<img style={imgStyle} src={this.props.data.imageUrl} />
 						</div>
 					</td>
-					<td>{this.props.data.name}</td>
-					<td>{this.props.data.wins}</td>
-					<td>{this.props.data.losses}</td>
-					<td>{this.props.data.winStreak}</td>
-					<td>{this.props.data.score}</td>
+					<td>
+						{this.props.data.name} ({this.props.data.score}p)<br/>
+						<div className="info">Vinser: {this.props.data.wins} Förluser: {this.props.data.losses} Obesegrad: {this.props.data.winStreak}</div>
+					</td>
 				</tr>
 			);
 	}

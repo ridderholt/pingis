@@ -19,17 +19,16 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 
 		return (
 				React.DOM.tr(null, 
-					React.DOM.td(null, this.props.data.position),
+					React.DOM.td(null, "#",this.props.data.position),
 					React.DOM.td(null, 
 						React.DOM.div( {style:imgDivStyle}, 
 							React.DOM.img( {style:imgStyle, src:this.props.data.imageUrl} )
 						)
 					),
-					React.DOM.td(null, this.props.data.name),
-					React.DOM.td(null, this.props.data.wins),
-					React.DOM.td(null, this.props.data.losses),
-					React.DOM.td(null, this.props.data.winStreak),
-					React.DOM.td(null, this.props.data.score)
+					React.DOM.td(null, 
+						this.props.data.name, " (",this.props.data.score,"p)",React.DOM.br(null),
+						React.DOM.div( {className:"info"}, "Vinser: ", this.props.data.wins, " Förluser: ", this.props.data.losses, " Obesegrad: ", this.props.data.winStreak)
+					)
 				)
 			);
 	}

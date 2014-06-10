@@ -65,3 +65,17 @@ footer {
 p {
   padding: 10px;
 }
+
+.scoreboard{
+  font-size: 20pt;
+}
+
+.scoreboard>tbody>tr>td{
+   vertical-align: middle;
+}
+
+.scoreboard .info{
+  font-size: 12pt;
+}
+
+
