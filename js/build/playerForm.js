@@ -2,7 +2,8 @@
 /** @jsx React.DOM */
 'use strict';
 
-var Message = require('./messageModel');
+var Message = require('./messageModel'),
+	ImageValidator = require('./imageValidator');
 
 module.exports = React.createClass({displayName: 'exports',
 	getInitialState: function() {
@@ -11,7 +12,8 @@ module.exports = React.createClass({displayName: 'exports',
 			lastname: '',
 			imageUrl: '',
 			showError: false,
-			showSuccess: false
+			showSuccess: false,
+			showImageError: false,
 		};
 	},
 	onFirsnameChange: function(e){
@@ -21,7 +23,16 @@ module.exports = React.createClass({displayName: 'exports',
 		this.setState({lastname: e.target.value});
 	},
 	onImageUrlChange: function(e){
-		this.setState({imageUrl: e.target.value});
+		var _this = this,
+			url = e.target.value + '?' + Math.random();
+
+		ImageValidator.isValid(url, function(isValid){
+			if(isValid){
+				_this.setState({imageUrl: url, showImageError: false});
+			} else{
+				_this.setState({showImageError: true});
+			}
+		});
 	},
 	onSubmit: function(e){
 		e.preventDefault();
@@ -44,6 +55,7 @@ module.exports = React.createClass({displayName: 'exports',
 				React.DOM.form( {className:"form-horizontal", onSubmit:this.onSubmit, role:"form"}, 
 					Message( {show:this.state.showSuccess, messageType:"bg-success", message:"Spelaren är sparad"} ),
 					Message( {show:this.state.showError, messageType:"bg-danger", message:"Ett fel uppstod"} ),
+					Message( {show:this.state.showImageError, messageType:"bg-danger", message:"Bilden är för liten. Minst 180x180px"} ),
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.label( {for:"firstname", className:"col-sm-2 control-label"}, "Förnamn"),
 						React.DOM.div( {className:"col-sm-10"}, 
@@ -72,7 +84,28 @@ module.exports = React.createClass({displayName: 'exports',
 	}
 });
 
-},{"./messageModel":2}],2:[function(require,module,exports){
+},{"./imageValidator":2,"./messageModel":3}],2:[function(require,module,exports){
+'use strict';
+
+var imageValidator = (function($){
+	var self = {};
+
+	self.isValid = function(url, callback){
+		$('<img />').attr('src', url).load(function(){
+			if(this.width < 180 || this.height < 180){
+				callback(false);
+				return;
+			}
+
+			callback(true);
+		});
+	};
+
+	return self;
+}(jQuery));
+
+module.exports = imageValidator;
+},{}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';					
 

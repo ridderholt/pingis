@@ -24,7 +24,10 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 							React.DOM.img( {style:imgStyle, src:this.props.data.imageUrl} )
 						)
 					),
-					React.DOM.td(null, this.props.data.name)
+					React.DOM.td(null, 
+						this.props.data.name, " (",this.props.data.score,"p)",React.DOM.br(null),
+						React.DOM.div( {className:"info"}, "Vinser: ", this.props.data.wins, " Förluser: ", this.props.data.losses, " Obesegrad: ", this.props.data.winStreak)
+					)
 				)
 			);
 	}

@@ -24,7 +24,10 @@ var ScoreboardRow = React.createClass({
 							<img style={imgStyle} src={this.props.data.imageUrl} />
 						</div>
 					</td>
-					<td>{this.props.data.name}</td>
+					<td>
+						{this.props.data.name} ({this.props.data.score}p)<br/>
+						<div className="info">Vinser: {this.props.data.wins} Förluser: {this.props.data.losses} Obesegrad: {this.props.data.winStreak}</div>
+					</td>
 				</tr>
 			);
 	}
