@@ -82,4 +82,16 @@ p {
   margin-right: 10px;
 }              
 
+.scoreboard .img-container{
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+}
+
+.scoreboard .img-container img{
+  width: 100px
+}
+
 
