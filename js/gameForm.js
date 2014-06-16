@@ -73,7 +73,7 @@ var gameForm = React.createClass({
 		return (
 			<form onSubmit={this.onSubmit} className="form-horizontal" role="form">
 				<Message show={this.state.message.show} messageType={this.state.message.type} message={this.state.message.text} />
-				<div className="form-group">
+				<div className="form-group has-feedback">
 					<label htmlFor="winner" className="col-sm-2 control-label">Vinnare</label>
 					<div className="col-sm-10">
 						<SelectBox selectedValue={this.state.winner} onChange={this.onWinnerSelected} items={this.state.players} />

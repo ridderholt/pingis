@@ -26,7 +26,11 @@ var ScoreboardRow = React.createClass({
 					</td>
 					<td>
 						{this.props.data.name} ({this.props.data.score}p)<br/>
-						<div className="info">Vinster: {this.props.data.wins} Förluser: {this.props.data.losses} Obesegrad: {this.props.data.winStreak}</div>
+						<div className="info">
+							<span className="badge list-group-item-success">Vinster: {this.props.data.wins}</span>
+							<span className="badge list-group-item-danger">Förluser: {this.props.data.losses}</span>
+							<span className="badge list-group-item-info">Obesegrad: {this.props.data.winStreak}</span>
+						</div>
 					</td>
 				</tr>
 			);

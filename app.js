@@ -17,10 +17,12 @@ if(debug){
 	app.use('/css', express.static(__dirname + '/css'));
 	app.use('/js', express.static(__dirname + '/js/build'));
 	app.use('/img', express.static(__dirname + '/img'));
+	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
 	app.use('/css', express.static(__dirname + '/css/dist'));
 	app.use('/js', express.static(__dirname + '/js/dist'));
 	app.use('/img', express.static(__dirname + '/img'));
+	app.use('/fonts', express.static(__dirname + '/fonts'));
 }
 
 
@@ -30,6 +32,10 @@ app.get('/', function (req, res) {
 
 app.get('/player', function(req, res){
 	res.render('player.html');
+});
+
+app.get('/test', function(req, res){
+	res.render('test.html');
 });
 
 app.get('/game', function(req, res){

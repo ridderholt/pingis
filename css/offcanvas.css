@@ -78,4 +78,8 @@ p {
   font-size: 12pt;
 }
 
+.scoreboard .info .badge{
+  margin-right: 10px;
+}              
+
 

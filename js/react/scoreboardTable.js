@@ -2,7 +2,8 @@
 'use strict';
 
 var ScoreboardRow = require('./scoreboardRow'),
-	ReactKey = require('./react-key');
+	ReactKey = require('./react-key'),
+	$ = require('jQuery');
 
 var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 	getInitialState: function() {

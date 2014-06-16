@@ -74,7 +74,7 @@ var gameForm = React.createClass({displayName: 'gameForm',
 		return (
 			React.DOM.form( {onSubmit:this.onSubmit, className:"form-horizontal", role:"form"}, 
 				Message( {show:this.state.message.show, messageType:this.state.message.type, message:this.state.message.text} ),
-				React.DOM.div( {className:"form-group"}, 
+				React.DOM.div( {className:"form-group has-feedback"}, 
 					React.DOM.label( {htmlFor:"winner", className:"col-sm-2 control-label"}, "Vinnare"),
 					React.DOM.div( {className:"col-sm-10"}, 
 						SelectBox( {selectedValue:this.state.winner, onChange:this.onWinnerSelected, items:this.state.players} )

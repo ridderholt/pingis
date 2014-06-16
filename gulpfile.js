@@ -5,7 +5,11 @@ var gulp = require('gulp'),
 	watch = require('gulp-watch'),
 	css = require('gulp-minify-css'),
 	react = require('gulp-react'),
-	jshint = require('gulp-jshint');
+	jshint = require('gulp-jshint'),
+	uglify = require('gulp-uglify'),
+	browser_shim = require('browserify-global-shim').configure({
+		'jQuery': '$'
+	});
 
 gulp.task('react', function(){
 	return gulp.src('./js/*.js')
@@ -23,8 +27,15 @@ gulp.task('scripts', ['react'], function(){
 	return gulp.src('./js/react/*.js')
 	.pipe(browserify({
 		insertGlobals: false,
-		debug: false
+		debug: false,
+		transform: browser_shim
 	})).pipe(gulp.dest('./js/build'));
+});
+
+gulp.task('minify', ['scripts'], function(){
+	return gulp.src('./js/build/*.js')
+			.pipe(uglify())
+			.pipe(gulp.dest('./js/dist'));
 });
 
 gulp.task('jshint', function(){
@@ -38,3 +49,6 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', ['react', 'scripts', 'css']);
+gulp.task('release', ['react', 'scripts', 'css', 'minify']);
+
+
