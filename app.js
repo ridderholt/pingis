@@ -2,12 +2,13 @@
 
 var express = require('express'),
 	app = express(),
-	debug = true,
+	debug = false,
 	scoreboard = require('./modules/scoreboard'),
 	players = require('./modules/players'),
 	games = require('./modules/game'),
 	bodyParser = require('body-parser'),
-	spawn = require('child_process').spawn;
+	spawn = require('child_process').spawn,
+	maxAgeParam = (14*24*60*60*1000);
 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -19,10 +20,10 @@ if(debug){
 	app.use('/img', express.static(__dirname + '/img'));
 	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
-	app.use('/css', express.static(__dirname + '/css/dist'));
-	app.use('/js', express.static(__dirname + '/js/dist'));
-	app.use('/img', express.static(__dirname + '/img'));
-	app.use('/fonts', express.static(__dirname + '/fonts'));
+	app.use('/css', express.static(__dirname + '/css/dist', {maxAge: maxAgeParam}));
+	app.use('/js', express.static(__dirname + '/js/dist', {maxAge: maxAgeParam}));
+	app.use('/img', express.static(__dirname + '/img', {maxAge: maxAgeParam}));
+	app.use('/fonts', express.static(__dirname + '/fonts', {maxAge: maxAgeParam}));
 }
 
 
