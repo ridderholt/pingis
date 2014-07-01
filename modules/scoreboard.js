@@ -43,6 +43,7 @@ function Scoreboards(){
 
 		players.get(playerId, function(err, player){
 			board.name = player.firstname + ' ' + player.lastname;
+			board.imageUrl = player.imageUrl;
 			callback(err, board);
 		});
 	};
