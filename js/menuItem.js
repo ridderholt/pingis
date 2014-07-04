@@ -3,7 +3,7 @@
 
 /*jshint asi: false*/
 
-module.exports = React.createClass({
+var menuItem = React.createClass({
 	render: function(){
 		var css = this.props.isActive === true ? 'active' : '';
 		return (
@@ -11,3 +11,5 @@ module.exports = React.createClass({
 			);
 	}
 });
+
+module.exports = menuItem;

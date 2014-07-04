@@ -34,7 +34,7 @@ React.renderComponent(
 var MenuItem = require('./menuItem'),
 	ReactKey = require('./react-key');
 
-module.exports = React.createClass({displayName: 'exports',
+var headerModel = React.createClass({displayName: 'headerModel',
 	getInitialState: function() {
 		return {data: []};
 	},
@@ -64,14 +64,14 @@ module.exports = React.createClass({displayName: 'exports',
 	}
 });
 
-
+module.exports = headerModel;
 },{"./menuItem":3,"./react-key":4}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 
 /*jshint asi: false*/
 
-module.exports = React.createClass({displayName: 'exports',
+var menuItem = React.createClass({displayName: 'menuItem',
 	render: function(){
 		var css = this.props.isActive === true ? 'active' : '';
 		return (
@@ -79,6 +79,8 @@ module.exports = React.createClass({displayName: 'exports',
 			);
 	}
 });
+
+module.exports = menuItem;
 },{}],4:[function(require,module,exports){
 'use strict';
 

@@ -32,7 +32,7 @@ React.renderComponent(PlayerForm(), document.getElementById('player-form'));
 var MenuItem = require('./menuItem'),
 	ReactKey = require('./react-key');
 
-module.exports = React.createClass({displayName: 'exports',
+var headerModel = React.createClass({displayName: 'headerModel',
 	getInitialState: function() {
 		return {data: []};
 	},
@@ -62,7 +62,7 @@ module.exports = React.createClass({displayName: 'exports',
 	}
 });
 
-
+module.exports = headerModel;
 },{"./menuItem":4,"./react-key":7}],3:[function(require,module,exports){
 'use strict';
 
@@ -90,7 +90,7 @@ module.exports = imageValidator;
 
 /*jshint asi: false*/
 
-module.exports = React.createClass({displayName: 'exports',
+var menuItem = React.createClass({displayName: 'menuItem',
 	render: function(){
 		var css = this.props.isActive === true ? 'active' : '';
 		return (
@@ -98,6 +98,8 @@ module.exports = React.createClass({displayName: 'exports',
 			);
 	}
 });
+
+module.exports = menuItem;
 },{}],5:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';					
