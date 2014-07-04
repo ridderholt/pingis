@@ -93,10 +93,25 @@ module.exports = new ReactKey();
 /** @jsx React.DOM */
 'use strict';
 
+var $ = (window.$),
+	CssAnimation = React.addons.CSSTransitionGroup;
+
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
+	getInitialState: function(){
+		return {
+			showDetails: false
+		}
+	},
+	onShowStats: function(e){
+		e.preventDefault();
+		this.setState({
+			showDetails: true
+		});
+	},
 	render: function () {
+		var detailsCss = this.state.showDetails ? 'row col-lg-10 animated bounceInDown' : 'hidden';
 		return (
-				React.DOM.div( {className:"col-lg-10 latter-step"}, 
+				React.DOM.div( {onClick:this.onShowStats, className:"col-lg-10 latter-step"}, 
 					React.DOM.div( {className:"col-lg-1 position"}, "#",this.props.data.position),
 					React.DOM.div( {className:"col-lg-3"}, 
 						React.DOM.div( {className:"img-container"}, 
@@ -110,6 +125,9 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 							React.DOM.span( {className:"badge list-group-item-danger"}, "Förluser: ", this.props.data.losses),
 							React.DOM.span( {className:"badge list-group-item-info"}, "Obesegrad: ", this.props.data.winStreak)
 						)
+					),
+					React.DOM.div( {className:detailsCss}, 
+						"Testar"
 					)
 				)
 			);

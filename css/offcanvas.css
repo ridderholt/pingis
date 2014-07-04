@@ -81,6 +81,7 @@ p {
    padding: 5px;
    border-bottom: 1px solid #c1c1c1;
    background-color: #f3f3f3;
+   cursor: pointer;
 }
 
 .scoreboard .info{
