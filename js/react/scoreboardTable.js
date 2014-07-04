@@ -23,17 +23,8 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 			return ScoreboardRow( {key:ReactKey.key(), data:row});
 		});
 		return (
-			React.DOM.table( {className:"scoreboard table table-striped"}, 
-				React.DOM.thead(null, 
-					React.DOM.tr(null, 
-						React.DOM.th(null, " "),
-						React.DOM.th(null, " "),
-						React.DOM.th(null, " ")
-					)
-				),
-				React.DOM.tbody(null, 
-					rows
-				)
+			React.DOM.div( {className:"scoreboard"}, 
+				rows
 			)
 			);
 	}

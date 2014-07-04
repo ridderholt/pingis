@@ -96,14 +96,14 @@ module.exports = new ReactKey();
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	render: function () {
 		return (
-				React.DOM.tr(null, 
-					React.DOM.td(null, "#",this.props.data.position),
-					React.DOM.td(null, 
+				React.DOM.div( {className:"col-lg-10 latter-step"}, 
+					React.DOM.div( {className:"col-lg-1 position"}, "#",this.props.data.position),
+					React.DOM.div( {className:"col-lg-3"}, 
 						React.DOM.div( {className:"img-container"}, 
 							React.DOM.img( {src:this.props.data.imageUrl} )
 						)
 					),
-					React.DOM.td(null, 
+					React.DOM.div( {className:"col-lg-6"}, 
 						this.props.data.name, " (",this.props.data.score,"p)",React.DOM.br(null),
 						React.DOM.div( {className:"info"}, 
 							React.DOM.span( {className:"badge list-group-item-success"}, "Vinster: ", this.props.data.wins),
@@ -143,17 +143,8 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 			return ScoreboardRow( {key:ReactKey.key(), data:row});
 		});
 		return (
-			React.DOM.table( {className:"scoreboard table table-striped"}, 
-				React.DOM.thead(null, 
-					React.DOM.tr(null, 
-						React.DOM.th(null, " "),
-						React.DOM.th(null, " "),
-						React.DOM.th(null, " ")
-					)
-				),
-				React.DOM.tbody(null, 
-					rows
-				)
+			React.DOM.div( {className:"scoreboard"}, 
+				rows
 			)
 			);
 	}
