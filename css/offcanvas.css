@@ -90,7 +90,11 @@ p {
 
 .scoreboard .info .badge{
   margin-right: 10px;
-}              
+}
+
+.scoreboard table {
+  font-size: 10pt;
+}
 
 .img-container{
   border-radius: 50px;
