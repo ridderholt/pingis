@@ -5,6 +5,7 @@ var express = require('express'),
 	debug = true,
 	gzippo = require('gzippo'),
 	scoreboard = require('./modules/scoreboard'),
+	scoreboardDetails = require('./modules/scoreboardDetails'),
 	players = require('./modules/players'),
 	games = require('./modules/game'),
 	bodyParser = require('body-parser'),
@@ -21,6 +22,11 @@ if(debug){
 	app.use('/img', express.static(__dirname + '/img'));
 	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
+	// app.use('/css', express.static(__dirname + '/css/dist', {maxAge: maxAgeParam}));
+	// app.use('/js', express.static(__dirname + '/js/dist', {maxAge: maxAgeParam}));
+	// app.use('/img', express.static(__dirname + '/img', {maxAge: maxAgeParam}));
+	// app.use('/fonts', express.static(__dirname + '/fonts', {maxAge: maxAgeParam}));
+
 	app.use('/css', gzippo.staticGzip(__dirname + '/css/dist', {maxAge: maxAgeParam}));
 	app.use('/js', gzippo.staticGzip(__dirname + '/js/dist', {maxAge: maxAgeParam}));
 	app.use('/img', gzippo.staticGzip(__dirname + '/img', {maxAge: maxAgeParam}));
@@ -59,6 +65,17 @@ app.post('/api/player', function(req, res){
 app.get('/api/scoreboard', function(req, res){
 	scoreboard.get(function(results){
 		res.json(results);
+	});
+});
+
+app.get('/api/scoreboard/details/:id', function(req, res){
+	scoreboardDetails.get(req.params.id, function(err, details){
+		if(err){
+			console.log(err);
+			res.send(500);
+		}
+
+		res.json(details);
 	});
 });
 

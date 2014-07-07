@@ -3,7 +3,7 @@
 var MenuItem = require('./menuItem'),
 	ReactKey = require('./react-key');
 
-module.exports = React.createClass({displayName: 'exports',
+var headerModel = React.createClass({displayName: 'headerModel',
 	getInitialState: function() {
 		return {data: []};
 	},
@@ -33,3 +33,4 @@ module.exports = React.createClass({displayName: 'exports',
 	}
 });
 
+module.exports = headerModel;

@@ -70,8 +70,18 @@ p {
   font-size: 20pt;
 }
 
-.scoreboard>tbody>tr>td{
+.scoreboard .position{
+  height: 100px;
+  padding-top: 25px;
+}
+
+.scoreboard .latter-step{
    vertical-align: middle;
+   margin: 10px 10px;
+   padding: 5px;
+   border-bottom: 1px solid #c1c1c1;
+   background-color: #f3f3f3;
+   cursor: pointer;
 }
 
 .scoreboard .info{
@@ -80,17 +90,22 @@ p {
 
 .scoreboard .info .badge{
   margin-right: 10px;
-}              
+}
 
-.scoreboard .img-container{
+.scoreboard table {
+  font-size: 10pt;
+}
+
+.img-container{
   border-radius: 50px;
   position: relative;
   overflow: hidden;
   width: 100px;
   height: 100px;
+  border: 1px solid #c1c1c1;
 }
 
-.scoreboard .img-container img{
+.img-container img{
   width: 100px
 }
 

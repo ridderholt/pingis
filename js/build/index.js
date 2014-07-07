@@ -28,13 +28,13 @@ React.renderComponent(
 	ScoreboardTable({ source: '/api/scoreboard' }),
 	document.getElementById('scoreboard-contaier'));
 
-},{"./headerModel":2,"./scoreboardTable":6}],2:[function(require,module,exports){
+},{"./headerModel":2,"./scoreboardTable":7}],2:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 var MenuItem = require('./menuItem'),
 	ReactKey = require('./react-key');
 
-module.exports = React.createClass({displayName: 'exports',
+var headerModel = React.createClass({displayName: 'headerModel',
 	getInitialState: function() {
 		return {data: []};
 	},
@@ -64,14 +64,14 @@ module.exports = React.createClass({displayName: 'exports',
 	}
 });
 
-
+module.exports = headerModel;
 },{"./menuItem":3,"./react-key":4}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 
 /*jshint asi: false*/
 
-module.exports = React.createClass({displayName: 'exports',
+var menuItem = React.createClass({displayName: 'menuItem',
 	render: function(){
 		var css = this.props.isActive === true ? 'active' : '';
 		return (
@@ -79,6 +79,8 @@ module.exports = React.createClass({displayName: 'exports',
 			);
 	}
 });
+
+module.exports = menuItem;
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -93,22 +95,78 @@ module.exports = new ReactKey();
 /** @jsx React.DOM */
 'use strict';
 
-var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
-	render: function () {
+var ScoreboardDetails = React.createClass({displayName: 'ScoreboardDetails',
+	render: function(){
+		var rows = this.props.details.map(function(d){
+			return React.DOM.tr(null, React.DOM.td(null, d.opponent),React.DOM.td(null, d.wins),React.DOM.td(null, d.losses))
+		});
 		return (
-				React.DOM.tr(null, 
-					React.DOM.td(null, "#",this.props.data.position),
-					React.DOM.td(null, 
+			React.DOM.table( {className:"table"}, 
+				React.DOM.thead(null, 
+					React.DOM.th(null, "Motståndare"),
+					React.DOM.th(null, "Vinster"),
+					React.DOM.th(null, "Förluster")
+				),
+				React.DOM.tbody(null, 
+					rows
+				)
+			)
+			);
+	}
+});
+
+module.exports = ScoreboardDetails;
+},{}],6:[function(require,module,exports){
+/** @jsx React.DOM */
+'use strict';
+
+var $ = (window.$),
+	ScoreboardDetails = require('./scoreboardDetails');
+
+var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
+	getInitialState: function(){
+		return {
+			showDetails: false,
+			playerDetails: []
+		};
+	},
+	onShowStats: function(e){
+		e.preventDefault();
+
+		if(!this.state.showDetails && this.state.playerDetails.length === 0){
+			$.getJSON('/api/scoreboard/details/' + this.props.data.playerId, function(details){
+				this.setState({
+					showDetails: !this.state.showDetails,
+					playerDetails: details
+				});
+			}.bind(this));
+		} else {
+			this.setState({
+				showDetails: !this.state.showDetails
+			});
+		}
+	},
+	render: function () {
+		var detailsCss = this.state.showDetails ? 'row col-lg-10 animated zoomIn center-block' : 'hidden';
+		return (
+				React.DOM.div( {onClick:this.onShowStats, className:"col-lg-10 latter-step"}, 
+					React.DOM.div( {className:"col-lg-1 position"}, "#",this.props.data.position),
+					React.DOM.div( {className:"col-lg-3"}, 
 						React.DOM.div( {className:"img-container"}, 
 							React.DOM.img( {src:this.props.data.imageUrl} )
 						)
 					),
-					React.DOM.td(null, 
+					React.DOM.div( {className:"col-lg-6"}, 
 						this.props.data.name, " (",this.props.data.score,"p)",React.DOM.br(null),
 						React.DOM.div( {className:"info"}, 
 							React.DOM.span( {className:"badge list-group-item-success"}, "Vinster: ", this.props.data.wins),
 							React.DOM.span( {className:"badge list-group-item-danger"}, "Förluser: ", this.props.data.losses),
 							React.DOM.span( {className:"badge list-group-item-info"}, "Obesegrad: ", this.props.data.winStreak)
+						)
+					),
+					React.DOM.div( {className:"col-lg-offset-2"}, 
+						React.DOM.div( {className:detailsCss}, 
+							ScoreboardDetails( {details:this.state.playerDetails})
 						)
 					)
 				)
@@ -117,7 +175,7 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 });
 
 module.exports = ScoreboardRow;
-},{}],6:[function(require,module,exports){
+},{"./scoreboardDetails":5}],7:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 
@@ -143,17 +201,8 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 			return ScoreboardRow( {key:ReactKey.key(), data:row});
 		});
 		return (
-			React.DOM.table( {className:"scoreboard table table-striped"}, 
-				React.DOM.thead(null, 
-					React.DOM.tr(null, 
-						React.DOM.th(null, " "),
-						React.DOM.th(null, " "),
-						React.DOM.th(null, " ")
-					)
-				),
-				React.DOM.tbody(null, 
-					rows
-				)
+			React.DOM.div( {className:"scoreboard"}, 
+				rows
 			)
 			);
 	}
@@ -161,4 +210,4 @@ var ScoreboardTable = React.createClass({displayName: 'ScoreboardTable',
 
 module.exports = ScoreboardTable;
 
-},{"./react-key":4,"./scoreboardRow":5}]},{},[1])
+},{"./react-key":4,"./scoreboardRow":6}]},{},[1])

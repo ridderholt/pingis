@@ -4,40 +4,62 @@ var mongodb = require('mongodb'),
 	MongoClient = mongodb.MongoClient,
 	ObjectId = mongodb.ObjectID,
 	connectionString = 'mongodb://127.0.0.1/pingpong',
-	async = require('async');
+	async = require('async'),
+	_ = require('lodash');
 
 function Datalayer () {
 	var self = this;
 
 	self.connect = function(){
-		var scoreboards;
-		var callback = function(err, results){
-			console.log(results);
-		};
+		var games,
+			players,
+			playerId;
 		MongoClient.connect(connectionString, function(err, db){
-			scoreboards = db.collection('scoreboards');
+			games = db.collection('games'),
+			players = db.collection('players'),
+			playerId = '53b97e5847a70b9c058775e4';
 
-			var finished = function(err, results){
-				console.log(results);
+
+			var dataCollected = function(err, results){
+				var myGames = results[0].games,
+					myPlayers = results[1].players;
+
+				var list = [];
+
+				_.chain(myPlayers)
+				 .filter(function(p){ return p._id.toString() !== playerId })
+				 .forEach(function(p){
+				 	list.push({
+				 		oponent: p.firstname + ' ' + p.lastname,
+				 		wins: _.filter(myGames, function(g){ return g.looser === p._id.toString() }).length,
+				 		losses: _.filter(myGames, function(g){ return g.winner === p._id.toString() }).length
+				 	});
+				 });
+
+				 console.log(list);
+
 				db.close();
 			};
 
-			var first = function(callback){
-				scoreboards.findOne({ _id: new ObjectId('53711be697f865d9732d33bd')}, function(err, item){
-					callback(err, 1);
+			var getGames = function(callback){
+
+				games.find({ $or: [{ winner: '53b97e5847a70b9c058775e4' }, { looser: '53b97e5847a70b9c058775e4' }] })
+				.toArray(function(err, results){
+					callback(err, { games: results });
 				});
 			};
 
-			var second = function(callback){
-				scoreboards.findOne({ _id: new ObjectId('53711be697f865d9732d33bd')}, function(err, item){
-					callback(err, 2);
+			var getPlayers = function(callback){
+				players.find({}).toArray(function(err, results){
+					callback(err, {players: results});
 				});
 			};
 
-			async.parallel([
-				first,
-				second
-			], finished);
+			async.series([
+					getGames,
+					getPlayers
+				], dataCollected);
+
 		});
 	};
 
