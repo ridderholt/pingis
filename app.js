@@ -5,6 +5,7 @@ var express = require('express'),
 	debug = true,
 	gzippo = require('gzippo'),
 	scoreboard = require('./modules/scoreboard'),
+	scoreboardDetails = require('./modules/scoreboardDetails'),
 	players = require('./modules/players'),
 	games = require('./modules/game'),
 	bodyParser = require('body-parser'),
@@ -64,6 +65,17 @@ app.post('/api/player', function(req, res){
 app.get('/api/scoreboard', function(req, res){
 	scoreboard.get(function(results){
 		res.json(results);
+	});
+});
+
+app.get('/api/scoreboard/details/:id', function(req, res){
+	scoreboardDetails.get(req.params.id, function(err, details){
+		if(err){
+			console.log(err);
+			res.send(500);
+		}
+
+		res.json(details);
 	});
 });
 
