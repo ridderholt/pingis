@@ -85,7 +85,7 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	onShowStats: function(e){
 		e.preventDefault();
 
-		if(!this.state.showDetails){
+		if(!this.state.showDetails && this.state.playerDetails.length === 0){
 			$.getJSON('/api/scoreboard/details/' + this.props.data.playerId, function(details){
 				this.setState({
 					showDetails: !this.state.showDetails,

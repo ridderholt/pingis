@@ -36,7 +36,7 @@ function ScoreboardDetails () {
 				 	details.push({
 				 		opponent: p.firstname + ' ' + p.lastname,
 				 		wins: _.filter(games, function(g){ return g.looser === p._id.toString() }).length,
-				 		losses: _.filter(games, function(g){ return g.winner === p._id.toString }).length
+				 		losses: _.filter(games, function(g){ return g.winner === p._id.toString() }).length
 				 	});
 				 });
 
