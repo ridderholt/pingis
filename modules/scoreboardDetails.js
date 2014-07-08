@@ -41,11 +41,6 @@ function ScoreboardDetails () {
 				 })
 				 .filter(function(d){ return d.wins > 0 || d.losses > 0; })
 				 .value();
-				 // .forEach(function(p){
-				 // 	details.push({
-				 	
-				 // 	});
-				 // });
 
 				 connection.close();
 				 callback(undefined, details);

@@ -9,7 +9,7 @@ function Scoreboards(){
 
 	var getSortOptions = function(){
 		return {
-			sort: [['score', 'desc'], ['wins', 'desc']]
+			sort: [['score', 'desc'], ['winStreak', 'desc'], ['wins', 'desc'], ['losses', 'asc']]
 		};
 	};
 
