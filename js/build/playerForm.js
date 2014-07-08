@@ -10,7 +10,8 @@ module.exports = React.createClass({displayName: 'exports',
 		return {
 			firstname: '',
 			lastname: '',
-			imageUrl: '',
+			imageUrl: '/img/no-profile.png',
+			imageType: 'image/png',
 			showError: false,
 			showSuccess: false,
 			showImageError: false,
@@ -23,16 +24,30 @@ module.exports = React.createClass({displayName: 'exports',
 		this.setState({lastname: e.target.value});
 	},
 	onImageUrlChange: function(e){
-		var _this = this,
-			url = e.target.value + '?' + Math.random();
+		var file = e.target.files[0],
+			fileReader = new FileReader(),
+			_this = this;
 
-		ImageValidator.isValid(url, function(isValid){
-			if(isValid){
-				_this.setState({imageUrl: url, showImageError: false});
-			} else{
-				_this.setState({showImageError: true});
-			}
-		});
+		if(ImageValidator.isValid(file)){
+			this.setState({
+				showImageError: false
+			});
+
+
+			fileReader.onload = function(e) {
+				_this.setState({
+					imageUrl: e.target.result,
+					imageType: file.type
+				});
+			};
+  
+			fileReader.readAsDataURL(file);  
+		} else {
+			this.setState({
+				showImageError: true
+			});
+		}
+		
 	},
 	onSubmit: function(e){
 		e.preventDefault();
@@ -70,8 +85,13 @@ module.exports = React.createClass({displayName: 'exports',
 					),
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.label( {for:"image-url", className:"col-sm-2 control-label"}, "Bild"),
-						React.DOM.div( {className:"col-sm-10"}, 
-							React.DOM.input( {id:"image-url", name:"image-url", type:"text", onChange:this.onImageUrlChange, className:"form-control", placeholder:"http://"} )
+						React.DOM.div( {className:"col-sm-8"}, 
+							React.DOM.input( {id:"image-url", name:"image-url", type:"file", onChange:this.onImageUrlChange, className:"form-control"} )
+						),
+						React.DOM.div( {className:"col-sm-2"}, 
+							React.DOM.div( {className:"img-container"}, 
+								React.DOM.img( {src:this.state.imageUrl} )
+							)
 						)
 					),
 					React.DOM.div( {className:"form-group"}, 
@@ -90,15 +110,12 @@ module.exports = React.createClass({displayName: 'exports',
 var imageValidator = (function($){
 	var self = {};
 
-	self.isValid = function(url, callback){
-		$('<img />').attr('src', url).load(function(){
-			if(this.width < 180 || this.height < 180){
-				callback(false);
-				return;
-			}
+	self.isValid = function(img){
+		if(img.width < 180 || img.height < 180){
+			return false;
+		}
 
-			callback(true);
-		});
+		return true;
 	};
 
 	return self;

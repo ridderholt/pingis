@@ -9,7 +9,8 @@ module.exports = React.createClass({
 		return {
 			firstname: '',
 			lastname: '',
-			imageUrl: '',
+			imageUrl: '/img/no-profile.png',
+			imageType: 'image/png',
 			showError: false,
 			showSuccess: false,
 			showImageError: false,
@@ -22,16 +23,30 @@ module.exports = React.createClass({
 		this.setState({lastname: e.target.value});
 	},
 	onImageUrlChange: function(e){
-		var _this = this,
-			url = e.target.value + '?' + Math.random();
+		var file = e.target.files[0],
+			fileReader = new FileReader(),
+			_this = this;
 
-		ImageValidator.isValid(url, function(isValid){
-			if(isValid){
-				_this.setState({imageUrl: url, showImageError: false});
-			} else{
-				_this.setState({showImageError: true});
-			}
-		});
+		if(ImageValidator.isValid(file)){
+			this.setState({
+				showImageError: false
+			});
+
+
+			fileReader.onload = function(e) {
+				_this.setState({
+					imageUrl: e.target.result,
+					imageType: file.type
+				});
+			};
+  
+			fileReader.readAsDataURL(file);  
+		} else {
+			this.setState({
+				showImageError: true
+			});
+		}
+		
 	},
 	onSubmit: function(e){
 		e.preventDefault();
@@ -69,8 +84,13 @@ module.exports = React.createClass({
 					</div>
 					<div className="form-group">
 						<label for="image-url" className="col-sm-2 control-label">Bild</label>
-						<div className="col-sm-10">
-							<input id="image-url" name="image-url" type="text" onChange={this.onImageUrlChange} className="form-control" placeholder="http://" />
+						<div className="col-sm-8">
+							<input id="image-url" name="image-url" type="file" onChange={this.onImageUrlChange} className="form-control" />
+						</div>
+						<div className="col-sm-2">
+							<div className="img-container">
+								<img src={this.state.imageUrl} />
+							</div>
 						</div>
 					</div>
 					<div className="form-group">

@@ -4,15 +4,12 @@
 var imageValidator = (function($){
 	var self = {};
 
-	self.isValid = function(url, callback){
-		$('<img />').attr('src', url).load(function(){
-			if(this.width < 180 || this.height < 180){
-				callback(false);
-				return;
-			}
+	self.isValid = function(img){
+		if(img.width < 180 || img.height < 180){
+			return false;
+		}
 
-			callback(true);
-		});
+		return true;
 	};
 
 	return self;

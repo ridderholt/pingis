@@ -10,16 +10,18 @@ var express = require('express'),
 	games = require('./modules/game'),
 	bodyParser = require('body-parser'),
 	spawn = require('child_process').spawn,
-	maxAgeParam = (14*24*60*60*1000);
+	maxAgeParam = (14*24*60*60*1000),
+	fs = require('fs');
 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
-app.use(bodyParser());
+app.use(bodyParser({limit: '50mb'}));
 
 if(debug){
 	app.use('/css', express.static(__dirname + '/css'));
 	app.use('/js', express.static(__dirname + '/js/build'));
 	app.use('/img', express.static(__dirname + '/img'));
+	app.use('/uploads', express.static(__dirname + '/uploads'));
 	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
 	// app.use('/css', express.static(__dirname + '/css/dist', {maxAge: maxAgeParam}));
@@ -30,6 +32,7 @@ if(debug){
 	app.use('/css', gzippo.staticGzip(__dirname + '/css/dist', {maxAge: maxAgeParam}));
 	app.use('/js', gzippo.staticGzip(__dirname + '/js/dist', {maxAge: maxAgeParam}));
 	app.use('/img', gzippo.staticGzip(__dirname + '/img', {maxAge: maxAgeParam}));
+	app.use('/uploads', gzippo.staticGzip(__dirname + '/uploads', {maxAge: maxAgeParam}));
 	app.use('/fonts', gzippo.staticGzip(__dirname + '/fonts', {maxAge: maxAgeParam}));
 	app.use(gzippo.compress());
 }
@@ -52,13 +55,29 @@ app.get('/game', function(req, res){
 });
 
 app.post('/api/player', function(req, res){
-	players.add({
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		imageUrl: req.body.imageUrl
-	});
 
-	res.send(200);
+	var base64Data = req.body.imageUrl.replace(/^data:image\/png;base64,/, "").replace(/^data:image\/jpeg;base64,/, ""),
+		photoName = req.body.firstname + '_' + req.body.lastname;
+
+	if(req.body.imageType === 'image/jpeg'){
+		photoName += '.jpg';
+	} else if(req.body.imageType === 'image/png'){
+		photoName += '.png';
+	}
+
+	fs.writeFile('./uploads/' + photoName, new Buffer(base64Data, 'base64'), function(err){
+		if(err){
+			res.send(500);
+		} else {
+			players.add({
+				firstname: req.body.firstname,
+				lastname: req.body.lastname,
+				imageUrl: '/uploads/' + photoName
+			});
+
+			res.send(200);
+		}
+	});
 });
 
 
@@ -92,6 +111,7 @@ app.post('/api/game', function(req, res){
 		res.send(200);
 	});
 });
+
 
 app.get('/api/test', function(req, res){
 	spawn('node', ['modules/task.js']);
