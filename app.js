@@ -24,11 +24,6 @@ if(debug){
 	app.use('/uploads', express.static(__dirname + '/uploads'));
 	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
-	// app.use('/css', express.static(__dirname + '/css/dist', {maxAge: maxAgeParam}));
-	// app.use('/js', express.static(__dirname + '/js/dist', {maxAge: maxAgeParam}));
-	// app.use('/img', express.static(__dirname + '/img', {maxAge: maxAgeParam}));
-	// app.use('/fonts', express.static(__dirname + '/fonts', {maxAge: maxAgeParam}));
-
 	app.use('/css', gzippo.staticGzip(__dirname + '/css/dist', {maxAge: maxAgeParam}));
 	app.use('/js', gzippo.staticGzip(__dirname + '/js/dist', {maxAge: maxAgeParam}));
 	app.use('/img', gzippo.staticGzip(__dirname + '/img', {maxAge: maxAgeParam}));

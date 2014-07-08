@@ -30,15 +30,22 @@ function ScoreboardDetails () {
 				games = data[0].games;
 				players = data[1].players;
 
-				_.chain(players)
+				details = _.chain(players)
 				 .filter(function(p){ return p._id.toString() !== playerId })
-				 .forEach(function(p){
-				 	details.push({
-				 		opponent: p.firstname + ' ' + p.lastname,
+				 .map(function(p){
+				 	return {
+						opponent: p.firstname + ' ' + p.lastname,
 				 		wins: _.filter(games, function(g){ return g.looser === p._id.toString() }).length,
 				 		losses: _.filter(games, function(g){ return g.winner === p._id.toString() }).length
-				 	});
-				 });
+				 	}
+				 })
+				 .filter(function(d){ return d.wins > 0 || d.losses > 0; })
+				 .value();
+				 // .forEach(function(p){
+				 // 	details.push({
+				 	
+				 // 	});
+				 // });
 
 				 connection.close();
 				 callback(undefined, details);
