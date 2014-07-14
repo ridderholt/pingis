@@ -151,7 +151,7 @@ var server = app.listen(1337, function(){
 	});
 
 	emitter.on('onPlayerAdded', function(){
-		getAllPlayers();
-	})
+		cache.remove('players');
+	});
 });
 

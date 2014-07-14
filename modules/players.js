@@ -14,7 +14,9 @@ function Players(emitter){
 			var players = connection.collection('players');
 			players.insert(player, function(err){
 				connection.close();
-				self.eventEmitter.emit('onPlayerAdded');
+				if(self.eventEmitter){
+					self.eventEmitter.emit('onPlayerAdded');
+				}
 			});
 		});
 	};
