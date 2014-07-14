@@ -4,10 +4,13 @@ var express = require('express'),
 	app = express(),
 	debug = true,
 	gzippo = require('gzippo'),
+	events = require('events'),
+	emitter = new events.EventEmitter(),
 	scoreboard = require('./modules/scoreboard'),
 	scoreboardDetails = require('./modules/scoreboardDetails'),
 	players = require('./modules/players'),
-	games = require('./modules/game'),
+	Game = require('./modules/game'),
+	games = new Game(emitter),
 	bodyParser = require('body-parser'),
 	spawn = require('child_process').spawn,
 	maxAgeParam = (14*24*60*60*1000),
@@ -146,4 +149,9 @@ var server = app.listen(1337, function(){
 	console.log('Server is up');
 	getScoreboards();
 	getAllPlayers();
+
+	emitter.on('onGameSaved', function(){
+		getScoreboards();
+	});
 });
+
