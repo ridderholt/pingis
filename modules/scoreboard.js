@@ -2,7 +2,8 @@
 
 var db = require('./datalayer'),
 	ObjectId = require('mongodb').ObjectID,
-	players = require('./players');
+	Players = require('./players'),
+	players = new Players();
 
 function Scoreboards(){
 	var self = this;

@@ -4,14 +4,20 @@ var express = require('express'),
 	app = express(),
 	debug = true,
 	gzippo = require('gzippo'),
+	events = require('events'),
+	emitter = new events.EventEmitter(),
 	scoreboard = require('./modules/scoreboard'),
 	scoreboardDetails = require('./modules/scoreboardDetails'),
-	players = require('./modules/players'),
-	games = require('./modules/game'),
+	Players = require('./modules/players'),
+	players = new Players(emitter),
+	Game = require('./modules/game'),
+	games = new Game(emitter),
 	bodyParser = require('body-parser'),
 	spawn = require('child_process').spawn,
 	maxAgeParam = (14*24*60*60*1000),
-	fs = require('fs');
+	fs = require('fs'),
+	Cache = require('mem-cache'),
+	cache = new Cache({timeoutDisabled: true});
 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -75,11 +81,24 @@ app.post('/api/player', function(req, res){
 	});
 });
 
+var getScoreboards = function(callback){
+	scoreboard.get(function(results){
+		cache.set('scoreboard', results);
+		if(callback){
+			callback(results);
+		}
+	});
+};
 
 app.get('/api/scoreboard', function(req, res){
-	scoreboard.get(function(results){
-		res.json(results);
-	});
+
+	if(cache.get('scoreboard')){
+		res.json(cache.get('scoreboard'));
+	} else {
+		getScoreboards(function(data){
+			res.json(data);
+		});
+	}
 });
 
 app.get('/api/scoreboard/details/:id', function(req, res){
@@ -93,12 +112,26 @@ app.get('/api/scoreboard/details/:id', function(req, res){
 	});
 });
 
-app.get('/api/players', function(req, res){
+var getAllPlayers = function(callback){
 	players.getAll(function(data){
-		res.json(data);
+		cache.set('players', data);
+		if(callback){
+			callback(data);
+		}
 	}, function(player){
 		return { text: player.firstname + ' ' + player.lastname, value: player._id };
-	});
+	});	
+}
+
+app.get('/api/players', function(req, res){
+
+	if(cache.get('players')){
+		res.json(cache.get('players'));
+	} else{
+		getAllPlayers(function(data){
+			res.json(data);
+		});
+	}
 });
 
 app.post('/api/game', function(req, res){
@@ -108,11 +141,17 @@ app.post('/api/game', function(req, res){
 });
 
 
-app.get('/api/test', function(req, res){
-	spawn('node', ['modules/task.js']);
-	res.send(200);
-});
-
 var server = app.listen(1337, function(){
 	console.log('Server is up');
+	getScoreboards();
+	getAllPlayers();
+
+	emitter.on('onGameSaved', function(){
+		getScoreboards();
+	});
+
+	emitter.on('onPlayerAdded', function(){
+		cache.remove('players');
+	});
 });
+

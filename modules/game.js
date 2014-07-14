@@ -5,9 +5,10 @@ var db = require('./datalayer'),
 	sb = require('./scoreboard'),
 	async = require('async');
 
-function Game(){
+function Game(emitter){
 	var self = this;
 
+	self.eventEmitter = emitter;
 	self.connection = null;
 
 	self.onError = function(err){
@@ -36,6 +37,7 @@ function Game(){
 
 					self.connection.close();
 					callback();
+					self.eventEmitter.emit('onGameSaved');
 				});
 			});
 		});
@@ -141,4 +143,4 @@ Game.prototype._updateScoreboards = function(game, callback) {
 	], onBoardsRecieved);
 };
 
-module.exports = new Game();
+module.exports = Game;
