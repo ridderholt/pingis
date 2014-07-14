@@ -8,7 +8,8 @@ var express = require('express'),
 	emitter = new events.EventEmitter(),
 	scoreboard = require('./modules/scoreboard'),
 	scoreboardDetails = require('./modules/scoreboardDetails'),
-	players = require('./modules/players'),
+	Players = require('./modules/players'),
+	players = new Players(emitter),
 	Game = require('./modules/game'),
 	games = new Game(emitter),
 	bodyParser = require('body-parser'),
@@ -140,11 +141,6 @@ app.post('/api/game', function(req, res){
 });
 
 
-app.get('/api/test', function(req, res){
-	spawn('node', ['modules/task.js']);
-	res.send(200);
-});
-
 var server = app.listen(1337, function(){
 	console.log('Server is up');
 	getScoreboards();
@@ -153,5 +149,9 @@ var server = app.listen(1337, function(){
 	emitter.on('onGameSaved', function(){
 		getScoreboards();
 	});
+
+	emitter.on('onPlayerAdded', function(){
+		getAllPlayers();
+	})
 });
 

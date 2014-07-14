@@ -5,14 +5,16 @@ var db = require('./datalayer'),
 	_ = require('lodash');
 
 
-function Players(){
+function Players(emitter){
 	var self = this;
+	self.eventEmitter = emitter;
 
 	self.add = function(player){
 		db.connect(function(connection){
 			var players = connection.collection('players');
 			players.insert(player, function(err){
 				connection.close();
+				self.eventEmitter.emit('onPlayerAdded');
 			});
 		});
 	};
@@ -55,4 +57,4 @@ function Players(){
 	return self;
 }
 
-module.exports = new Players();
+module.exports = Players;

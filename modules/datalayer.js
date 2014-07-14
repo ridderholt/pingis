@@ -1,7 +1,8 @@
 'use strict';
 var	MongoClient = require('mongodb').MongoClient,
 	// connectionString = 'mongodb://127.0.0.1/pingpong';
-	connectionString = 'mongodb://sa:goofy@ds050087.mongolab.com:50087/pingpong';
+	connectionString = 'mongodb://pingis.cloudapp.net/pingpong';
+	// connectionString = 'mongodb://sa:goofy@ds050087.mongolab.com:50087/pingpong';
 
 function Datalayer () {
 	var self = this;
