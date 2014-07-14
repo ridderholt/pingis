@@ -90,11 +90,11 @@ app.get('/api/scoreboard', function(req, res){
 
 	if(cache.get('scoreboard')){
 		res.json(cache.get('scoreboard'));
+	} else {
+		getScoreboards(function(data){
+			res.json(data);
+		});
 	}
-
-	getScoreboards(function(data){
-		res.json(data);
-	})
 });
 
 app.get('/api/scoreboard/details/:id', function(req, res){
@@ -108,12 +108,26 @@ app.get('/api/scoreboard/details/:id', function(req, res){
 	});
 });
 
-app.get('/api/players', function(req, res){
+var getAllPlayers = function(callback){
 	players.getAll(function(data){
-		res.json(data);
+		cache.set('players', data);
+		if(callback){
+			callback(data);
+		}
 	}, function(player){
 		return { text: player.firstname + ' ' + player.lastname, value: player._id };
-	});
+	});	
+}
+
+app.get('/api/players', function(req, res){
+
+	if(cache.get('players')){
+		res.json(cache.get('players'));
+	} else{
+		getAllPlayers(function(data){
+			res.json(data);
+		});
+	}
 });
 
 app.post('/api/game', function(req, res){
@@ -131,4 +145,5 @@ app.get('/api/test', function(req, res){
 var server = app.listen(1337, function(){
 	console.log('Server is up');
 	getScoreboards();
+	getAllPlayers();
 });
