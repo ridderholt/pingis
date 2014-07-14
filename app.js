@@ -11,7 +11,9 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	spawn = require('child_process').spawn,
 	maxAgeParam = (14*24*60*60*1000),
-	fs = require('fs');
+	fs = require('fs'),
+	Cache = require('mem-cache'),
+	cache = new Cache({timeoutDisabled: true});
 
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -75,11 +77,24 @@ app.post('/api/player', function(req, res){
 	});
 });
 
+var getScoreboards = function(callback){
+	scoreboard.get(function(results){
+		cache.set('scoreboard', results);
+		if(callback){
+			callback(results);
+		}
+	});
+};
 
 app.get('/api/scoreboard', function(req, res){
-	scoreboard.get(function(results){
-		res.json(results);
-	});
+
+	if(cache.get('scoreboard')){
+		res.json(cache.get('scoreboard'));
+	}
+
+	getScoreboards(function(data){
+		res.json(data);
+	})
 });
 
 app.get('/api/scoreboard/details/:id', function(req, res){
@@ -115,4 +130,5 @@ app.get('/api/test', function(req, res){
 
 var server = app.listen(1337, function(){
 	console.log('Server is up');
+	getScoreboards();
 });
