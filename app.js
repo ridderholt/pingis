@@ -47,10 +47,6 @@ app.get('/player', function(req, res){
 	res.render('player.html');
 });
 
-app.get('/test', function(req, res){
-	res.render('test.html');
-});
-
 app.get('/game', function(req, res){
 	res.render('game.html');
 });
@@ -120,7 +116,7 @@ var getAllPlayers = function(callback){
 		}
 	}, function(player){
 		return { text: player.firstname + ' ' + player.lastname, value: player._id };
-	});	
+	});
 }
 
 app.get('/api/players', function(req, res){
@@ -140,6 +136,13 @@ app.post('/api/game', function(req, res){
 	});
 });
 
+app.use(function(req, res){
+	res.render('404.html');
+});
+
+app.use(function(error, req, res){
+	res.render('500.html');
+});
 
 var server = app.listen(1337, function(){
 	console.log('Server is up');
@@ -154,4 +157,3 @@ var server = app.listen(1337, function(){
 		cache.remove('players');
 	});
 });
-
