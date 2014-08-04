@@ -112,7 +112,7 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 						this.props.data.name, " (",this.props.data.score,"p)",React.DOM.br(null),
 						React.DOM.div( {className:"info"}, 
 							React.DOM.span( {className:"badge list-group-item-success"}, "Vinster: ", this.props.data.wins),
-							React.DOM.span( {className:"badge list-group-item-danger"}, "Förluser: ", this.props.data.losses),
+							React.DOM.span( {className:"badge list-group-item-danger"}, "Förluster: ", this.props.data.losses),
 							React.DOM.span( {className:"badge list-group-item-info"}, "Obesegrad: ", this.props.data.winStreak)
 						)
 					),
