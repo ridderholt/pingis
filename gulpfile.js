@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	react = require('gulp-react'),
 	jshint = require('gulp-jshint'),
 	uglify = require('gulp-uglify'),
+	concat = require('gulp-concat'),
 	browser_shim = require('browserify-global-shim').configure({
 		'jQuery': '$'
 	});
@@ -18,9 +19,21 @@ gulp.task('react', function(){
 });
 
 gulp.task('css', function(){
-	gulp.src('./css/*.css')
+	return gulp.src('./css/*.css')
 		.pipe(css({}))
 		.pipe(gulp.dest('./css/dist'));
+});
+
+gulp.task('cssConcat', function(){
+	return gulp.src(['./css/dist/offcanvas.css', './css/dist/animate.css', 'ladda.min.css'])
+		.pipe(concat('all.css'))
+		.pipe(gulp.dest('./css/dist'));
+	});
+
+gulp.task('libs', function(){
+	return gulp.src(['./lib/spin.min.js', './lib/ladda.min.js', './lib/ladda.jquery.min.js'])
+			   .pipe(concat('laddaLib.min.js'))
+			   .pipe(gulp.dest('./lib/dist'));
 });
 
 gulp.task('scripts', ['react'], function(){
@@ -49,6 +62,6 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default', ['react', 'scripts', 'css']);
-gulp.task('release', ['react', 'scripts', 'css', 'minify']);
+gulp.task('release', ['react', 'scripts', 'css', 'minify', 'libs', 'cssConcat']);
 
 

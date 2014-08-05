@@ -3,7 +3,11 @@
 <head>
 	<meta http-equiv='Content-type' content='text/html; charset=utf-8'>
 	<title>NodeSite</title>
-	<% include css %>
+	<% if (isDebug) { %>
+		<% include css %>
+	<% } else { %>
+		<% include css-release %>
+	<% } %>
 </head>
 <body>
 	<div class="container">
@@ -20,7 +24,11 @@
 			<% include footer %>
 		</div>
 
-		<% include js %>
+		<% if (isDebug) { %>
+			<% include js %>
+		<% } else { %>
+			<% include js-release %>
+		<% } %>
 		<script src="/js/index.js"></script>
 </body>
 </html>

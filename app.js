@@ -2,7 +2,7 @@
 
 var express = require('express'),
 	app = express(),
-	debug = true,
+	debug = false,
 	gzippo = require('gzippo'),
 	events = require('events'),
 	emitter = new events.EventEmitter(),
@@ -42,15 +42,15 @@ if(debug){
 
 
 app.get('/', function (req, res) {
-	res.render('index.html');
+	res.render('index.html', { isDebug: debug });
 });
 
 app.get('/player', function(req, res){
-	res.render('player.html');
+	res.render('player.html', { isDebug: debug });
 });
 
 app.get('/game', function(req, res){
-	res.render('game.html');
+	res.render('game.html', { isDebug: debug });
 });
 
 app.post('/api/player', function(req, res){
