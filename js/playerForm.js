@@ -2,7 +2,8 @@
 'use strict';
 
 var Message = require('./messageModel'),
-	ImageValidator = require('./imageValidator');
+	ImageValidator = require('./imageValidator'),
+	$ = require('jQuery');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -14,6 +15,7 @@ module.exports = React.createClass({
 			showError: false,
 			showSuccess: false,
 			showImageError: false,
+			saving: false
 		};
 	},
 	onFirsnameChange: function(e){
@@ -50,6 +52,13 @@ module.exports = React.createClass({
 	},
 	onSubmit: function(e){
 		e.preventDefault();
+
+		if(this.state.saving) return;
+
+		var loader = $('.ladda-button').ladda();
+		loader.ladda('start');
+		this.setState({saving: true});
+
 		var _this = this;
 		$.ajax({
 			url: '/api/player',
@@ -61,6 +70,10 @@ module.exports = React.createClass({
 			},
 			error: function(){
 				_this.setState({showError:true});
+			},
+			complete: function(){
+				loader.ladda('stop');
+				_this.setState({saving: false});
 			}
 		});
 	},
@@ -95,7 +108,9 @@ module.exports = React.createClass({
 					</div>
 					<div className="form-group">
 						<div className="col-sm-offset-2 col-sm-10">
-							<button type="submit" className="btn btn-success">Spara</button>
+							<button type="submit" data-color="green" data-size="s" data-style="expand-right" className="ladda-button">
+								<span className="ladda-label">Spara</span>
+							</button>
 						</div>
 					</div>
 				</form>

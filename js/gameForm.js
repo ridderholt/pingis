@@ -2,7 +2,8 @@
 'use strict';
 
 var SelectBox = require('./selectbox'),
-	Message = require('./messageModel');
+	Message = require('./messageModel'),
+	$ = require('jQuery');
 
 var gameForm = React.createClass({
 	getInitialState: function(){
@@ -10,6 +11,7 @@ var gameForm = React.createClass({
 			players: [],
 			winner: '',
 			looser: '',
+			saving: false,
 			message: {
 				type: 'bg-success',
 				text: 'Matchen har sparats',
@@ -46,6 +48,12 @@ var gameForm = React.createClass({
 	},
 	onSubmit: function(e){
 		e.preventDefault();
+		if(this.state.saving) return;
+
+		var loader = $('.ladda-button').ladda();
+		loader.ladda('start');
+		this.setState({saving: true});
+
 		var _this = this;
 		$.ajax({
 			url: '/api/game',
@@ -53,10 +61,12 @@ var gameForm = React.createClass({
 			contentType: 'application/json',
 			data: JSON.stringify({ winner: this.state.winner, looser: this.state.looser }),
 			success: function(){
+				loader.ladda('stop');
 				_this.setState({message: {
 					type: 'bg-success',
 					text: 'Matchen har sparats',
-					show: true
+					show: true,
+					saving: false
 				}});
 			}
 		});
@@ -87,7 +97,9 @@ var gameForm = React.createClass({
 				</div>
 				<div className="form-group">
 					<div className="col-sm-offset-2 col-sm-10">
-						<button type="submit" className="btn btn-success">Spara</button>
+						<button type="submit" data-color="green" data-size="s" data-style="expand-right" className="ladda-button">
+							<span className="ladda-label">Spara</span>
+						</button>
 					</div>
 				</div>
 			</form>

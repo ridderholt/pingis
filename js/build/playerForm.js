@@ -3,7 +3,8 @@
 'use strict';
 
 var Message = require('./messageModel'),
-	ImageValidator = require('./imageValidator');
+	ImageValidator = require('./imageValidator'),
+	$ = (window.$);
 
 module.exports = React.createClass({displayName: 'exports',
 	getInitialState: function() {
@@ -15,6 +16,7 @@ module.exports = React.createClass({displayName: 'exports',
 			showError: false,
 			showSuccess: false,
 			showImageError: false,
+			saving: false
 		};
 	},
 	onFirsnameChange: function(e){
@@ -51,6 +53,13 @@ module.exports = React.createClass({displayName: 'exports',
 	},
 	onSubmit: function(e){
 		e.preventDefault();
+
+		if(this.state.saving) return;
+
+		var loader = $('.ladda-button').ladda();
+		loader.ladda('start');
+		this.setState({saving: true});
+
 		var _this = this;
 		$.ajax({
 			url: '/api/player',
@@ -62,6 +71,10 @@ module.exports = React.createClass({displayName: 'exports',
 			},
 			error: function(){
 				_this.setState({showError:true});
+			},
+			complete: function(){
+				loader.ladda('stop');
+				_this.setState({saving: false});
 			}
 		});
 	},
@@ -96,7 +109,9 @@ module.exports = React.createClass({displayName: 'exports',
 					),
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.div( {className:"col-sm-offset-2 col-sm-10"}, 
-							React.DOM.button( {type:"submit", className:"btn btn-success"}, "Spara")
+							React.DOM.button( {type:"submit", 'data-color':"green", 'data-size':"s", 'data-style':"expand-right", className:"ladda-button"}, 
+								React.DOM.span( {className:"ladda-label"}, "Spara")
+							)
 						)
 					)
 				)

@@ -26,12 +26,14 @@ app.use(bodyParser({limit: '50mb'}));
 if(debug){
 	app.use('/css', express.static(__dirname + '/css'));
 	app.use('/js', express.static(__dirname + '/js/build'));
+	app.use('/lib', express.static(__dirname + '/lib'));
 	app.use('/img', express.static(__dirname + '/img'));
 	app.use('/uploads', express.static(__dirname + '/uploads'));
 	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
 	app.use('/css', gzippo.staticGzip(__dirname + '/css/dist', {maxAge: maxAgeParam}));
 	app.use('/js', gzippo.staticGzip(__dirname + '/js/dist', {maxAge: maxAgeParam}));
+	app.use('/lib', gzippo.staticGzip(__dirname + '/lib', {maxAge: maxAgeParam}));
 	app.use('/img', gzippo.staticGzip(__dirname + '/img', {maxAge: maxAgeParam}));
 	app.use('/uploads', gzippo.staticGzip(__dirname + '/uploads', {maxAge: maxAgeParam}));
 	app.use('/fonts', gzippo.staticGzip(__dirname + '/fonts', {maxAge: maxAgeParam}));
