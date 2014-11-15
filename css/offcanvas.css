@@ -134,4 +134,12 @@ p {
   .scoreboard .profile{
     display: none;
   }
+	.logo{
+	  margin: 7px 0 7px 10px;
+	}
+
+.img-container{
+	margin-top: 10px;
+}
+
 }
