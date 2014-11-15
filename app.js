@@ -23,7 +23,14 @@ app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser({limit: '50mb'}));
 
+if(process.env.DEBUG){
+	debug = process.env.DEBUG === 'True' ? true : false;
+} else {
+	debug = true;
+}
+
 if(debug){
+	console.log('Site started in DEBUG mode');
 	app.use('/css', express.static(__dirname + '/css'));
 	app.use('/js', express.static(__dirname + '/js/build'));
 	app.use('/lib', express.static(__dirname + '/lib'));
@@ -31,6 +38,7 @@ if(debug){
 	app.use('/uploads', express.static(__dirname + '/uploads'));
 	app.use('/fonts', express.static(__dirname + '/fonts'));
 } else {
+	console.log('Site started in RELEASE mode');
 	app.use('/css', gzippo.staticGzip(__dirname + '/css/dist', {maxAge: maxAgeParam}));
 	app.use('/js', gzippo.staticGzip(__dirname + '/js/dist', {maxAge: maxAgeParam}));
 	app.use('/lib', gzippo.staticGzip(__dirname + '/lib', {maxAge: maxAgeParam}));
