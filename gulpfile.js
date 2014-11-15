@@ -25,7 +25,7 @@ gulp.task('css', function(){
 });
 
 gulp.task('cssConcat', function(){
-	return gulp.src(['./css/dist/offcanvas.css', './css/dist/animate.css', 'ladda.min.css'])
+	return gulp.src(['./css/dist/offcanvas.css', './css/dist/animate.css', './css/dist/ladda.min.css'])
 		.pipe(concat('all.css'))
 		.pipe(gulp.dest('./css/dist'));
 	});
