@@ -79,7 +79,7 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	getInitialState: function(){
 		return {
 			showDetails: false,
-			playerDetails: []
+			playerDetails: [],
 		};
 	},
 	onShowStats: function(e){
@@ -100,13 +100,14 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	},
 	render: function () {
 		var detailsCss = this.state.showDetails ? 'row col-lg-10 animated zoomIn center-block' : 'hidden';
+		var profileImage = {
+			backgroundImage: 'url(' + this.props.data.imageUrl + ')'
+		};
 		return (
 				React.DOM.div( {onClick:this.onShowStats, className:"row col-lg-10 latter-step"}, 
 					React.DOM.div( {className:"col-lg-1 position"}, "#",this.props.data.position),
 					React.DOM.div( {className:"col-lg-3 profile"}, 
-						React.DOM.div( {className:"img-container"}, 
-							React.DOM.img( {src:this.props.data.imageUrl} )
-						)
+						React.DOM.div( {className:"img-container", style:profileImage})
 					),
 					React.DOM.div( {className:"col-lg-6 scores"}, 
 						this.props.data.name, " (",this.props.data.score,"p)",React.DOM.br(null),
@@ -127,4 +128,5 @@ var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 });
 
 module.exports = ScoreboardRow;
+
 },{"./scoreboardDetails":3}]},{},[1])

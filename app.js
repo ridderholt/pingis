@@ -2,7 +2,7 @@
 
 var express = require('express'),
 	app = express(),
-	debug = false,
+	debug = true,
 	gzippo = require('gzippo'),
 	events = require('events'),
 	emitter = new events.EventEmitter(),

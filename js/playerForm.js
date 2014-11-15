@@ -15,7 +15,10 @@ module.exports = React.createClass({
 			showError: false,
 			showSuccess: false,
 			showImageError: false,
-			saving: false
+			saving: false,
+			imgStyle: {
+				backgroundImage: 'url(/img/no-profile.png)'
+			}
 		};
 	},
 	onFirsnameChange: function(e){
@@ -38,7 +41,10 @@ module.exports = React.createClass({
 			fileReader.onload = function(e) {
 				_this.setState({
 					imageUrl: e.target.result,
-					imageType: file.type
+					imageType: file.type,
+					imgStyle: {
+						backgroundImage: 'url(' + e.target.result + ')'
+					}
 				});
 			};
   
@@ -101,8 +107,7 @@ module.exports = React.createClass({
 							<input id="image-url" name="image-url" type="file" onChange={this.onImageUrlChange} className="form-control" />
 						</div>
 						<div className="col-sm-2">
-							<div className="img-container">
-								<img src={this.state.imageUrl} />
+							<div className="img-container" style={this.state.imgStyle}>
 							</div>
 						</div>
 					</div>

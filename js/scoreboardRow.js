@@ -8,7 +8,7 @@ var ScoreboardRow = React.createClass({
 	getInitialState: function(){
 		return {
 			showDetails: false,
-			playerDetails: []
+			playerDetails: [],
 		};
 	},
 	onShowStats: function(e){
@@ -29,13 +29,14 @@ var ScoreboardRow = React.createClass({
 	},
 	render: function () {
 		var detailsCss = this.state.showDetails ? 'row col-lg-10 animated zoomIn center-block' : 'hidden';
+		var profileImage = {
+			backgroundImage: 'url(' + this.props.data.imageUrl + ')'
+		};
 		return (
 				<div onClick={this.onShowStats} className="row col-lg-10 latter-step">
 					<div className="col-lg-1 position">#{this.props.data.position}</div>
 					<div className="col-lg-3 profile">
-						<div className="img-container">
-							<img src={this.props.data.imageUrl} />
-						</div>
+						<div className="img-container" style={profileImage}></div>
 					</div>
 					<div className="col-lg-6 scores">
 						{this.props.data.name} ({this.props.data.score}p)<br/>

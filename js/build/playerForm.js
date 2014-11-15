@@ -16,7 +16,10 @@ module.exports = React.createClass({displayName: 'exports',
 			showError: false,
 			showSuccess: false,
 			showImageError: false,
-			saving: false
+			saving: false,
+			imgStyle: {
+				backgroundImage: 'url(/img/no-profile.png)'
+			}
 		};
 	},
 	onFirsnameChange: function(e){
@@ -39,7 +42,10 @@ module.exports = React.createClass({displayName: 'exports',
 			fileReader.onload = function(e) {
 				_this.setState({
 					imageUrl: e.target.result,
-					imageType: file.type
+					imageType: file.type,
+					imgStyle: {
+						backgroundImage: 'url(' + e.target.result + ')'
+					}
 				});
 			};
   
@@ -102,8 +108,7 @@ module.exports = React.createClass({displayName: 'exports',
 							React.DOM.input( {id:"image-url", name:"image-url", type:"file", onChange:this.onImageUrlChange, className:"form-control"} )
 						),
 						React.DOM.div( {className:"col-sm-2"}, 
-							React.DOM.div( {className:"img-container"}, 
-								React.DOM.img( {src:this.state.imageUrl} )
+							React.DOM.div( {className:"img-container", style:this.state.imgStyle}
 							)
 						)
 					),
