@@ -92,13 +92,13 @@ module.exports = React.createClass({displayName: 'exports',
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.label( {for:"firstname", className:"col-sm-2 control-label"}, "Förnamn"),
 						React.DOM.div( {className:"col-sm-10"}, 
-							React.DOM.input( {type:"text", onChange:this.onFirsnameChange, className:"form-control", placeholder:"Förnamn", id:"firstname"} )
+							React.DOM.input( {type:"text", required:true, onChange:this.onFirsnameChange, className:"form-control", placeholder:"Förnamn", id:"firstname"} )
 						)
 					),
 					React.DOM.div( {className:"form-group"}, 
 						React.DOM.label( {for:"lastname", className:"col-sm-2 control-label"}, "Efternamn"),
 						React.DOM.div( {className:"col-sm-10"}, 
-							React.DOM.input( {type:"text", onChange:this.onLastnameChange, className:"form-control", placeholder:"Efternamn", id:"lastname"} )
+							React.DOM.input( {type:"text", required:true, onChange:this.onLastnameChange, className:"form-control", placeholder:"Efternamn", id:"lastname"} )
 						)
 					),
 					React.DOM.div( {className:"form-group"}, 

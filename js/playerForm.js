@@ -92,13 +92,13 @@ module.exports = React.createClass({
 					<div className="form-group">
 						<label for="firstname" className="col-sm-2 control-label">Förnamn</label>
 						<div className="col-sm-10">
-							<input type="text" onChange={this.onFirsnameChange} className="form-control" placeholder="Förnamn" id="firstname" />
+							<input type="text" required onChange={this.onFirsnameChange} className="form-control" placeholder="Förnamn" id="firstname" />
 						</div>
 					</div>
 					<div className="form-group">
 						<label for="lastname" className="col-sm-2 control-label">Efternamn</label>
 						<div className="col-sm-10">
-							<input type="text" onChange={this.onLastnameChange} className="form-control" placeholder="Efternamn" id="lastname" />
+							<input type="text" required onChange={this.onLastnameChange} className="form-control" placeholder="Efternamn" id="lastname" />
 						</div>
 					</div>
 					<div className="form-group">

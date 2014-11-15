@@ -239,7 +239,7 @@ var selectbox = React.createClass({displayName: 'selectbox',
 			return React.DOM.option( {key:ReactKey.key(), selected:isSelected, defaultValue:_this.props.selectedValue, value:item.value}, item.text);
 		});
 		return (
-				React.DOM.select( {onChange:this.props.onChange, className:"form-control"}, 
+				React.DOM.select( {required:true, onChange:this.props.onChange, className:"form-control"}, 
 					options
 				)
 			);
@@ -247,4 +247,5 @@ var selectbox = React.createClass({displayName: 'selectbox',
 });
 
 module.exports = selectbox;
+
 },{"./react-key":6}]},{},[1])

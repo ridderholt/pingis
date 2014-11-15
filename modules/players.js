@@ -9,7 +9,21 @@ function Players(emitter){
 	var self = this;
 	self.eventEmitter = emitter;
 
+	var isValid = function(player){
+		if(!player.firstname || player.firstname === ''){
+			return false;
+		}
+
+		if(!player.lastname || player.lastname === ''){
+			return false;
+		}
+
+		return true;
+	};
+
 	self.add = function(player){
+		if(!isValid(player)) return;
+
 		db.connect(function(connection){
 			var players = connection.collection('players');
 			players.insert(player, function(err){

@@ -11,7 +11,7 @@ var selectbox = React.createClass({
 			return <option key={ReactKey.key()} selected={isSelected} defaultValue={_this.props.selectedValue} value={item.value}>{item.text}</option>;
 		});
 		return (
-				<select onChange={this.props.onChange} className="form-control">
+				<select required onChange={this.props.onChange} className="form-control">
 					{options}
 				</select>
 			);
