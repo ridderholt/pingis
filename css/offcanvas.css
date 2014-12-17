@@ -132,7 +132,6 @@ p {
 
 @media (max-width: 600px){
   .scoreboard .profile{
-    display: none;
   }
 	.logo{
 	  margin: 7px 0 7px 10px;
@@ -140,6 +139,20 @@ p {
 
 .img-container{
 	margin-top: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.position{
+  display: none;
+}
+
+.scoreboard{
+  font-size: 17pt;
+}
+
+.scoreboard .info .badge{
+  margin-right: 5px;
 }
 
 }
