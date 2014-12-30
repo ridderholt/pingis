@@ -8,6 +8,7 @@ var ScoreboardRow = React.createClass({
 	getInitialState: function(){
 		return {
 			showDetails: false,
+			loadingDetails: false,
 			playerDetails: [],
 		};
 	},
@@ -15,10 +16,12 @@ var ScoreboardRow = React.createClass({
 		e.preventDefault();
 
 		if(!this.state.showDetails && this.state.playerDetails.length === 0){
+			this.setState({loadingDetails: true });
 			$.getJSON('/api/scoreboard/details/' + this.props.data.playerId, function(details){
 				this.setState({
 					showDetails: !this.state.showDetails,
-					playerDetails: details
+					playerDetails: details,
+					loadingDetails: false
 				});
 			}.bind(this));
 		} else {
@@ -29,6 +32,7 @@ var ScoreboardRow = React.createClass({
 	},
 	render: function () {
 		var detailsCss = this.state.showDetails ? 'row col-lg-10 animated zoomIn center-block' : 'hidden';
+		var loadingCss = this.state.loadingDetails ? '' : 'hidden';
 		var profileImage = {
 			backgroundImage: 'url(' + this.props.data.imageUrl + ')'
 		};
@@ -47,6 +51,13 @@ var ScoreboardRow = React.createClass({
 						</div>
 					</div>
 					<div className="col-lg-offset-2">
+						<div className={loadingCss}>
+							<div className="spinner">
+							  <div className="bounce1"></div>
+							  <div className="bounce2"></div>
+							  <div className="bounce3"></div>
+							</div>
+						</div>
 						<div className={detailsCss}>
 							<ScoreboardDetails details={this.state.playerDetails}></ScoreboardDetails>
 						</div>
