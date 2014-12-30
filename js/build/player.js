@@ -1,10 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var Header = require('./headerModel'),
-	PlayerForm = require('./playerForm');
+var Header = React.createFactory(require('./headerModel')),
+	PlayerForm = React.createFactory(require('./playerForm'));
 
-React.renderComponent(
+React.render(
 	Header({ projectName: 'Pingisstegen', menuItems: [
 	{
 		name: 'Statistik',
@@ -24,7 +24,7 @@ React.renderComponent(
 	] }),
 	document.getElementById('headerContainer'));
 
-React.renderComponent(PlayerForm(), document.getElementById('player-form'));
+React.render(PlayerForm(), document.getElementById('player-form'));
 
 },{"./headerModel":2,"./playerForm":6}],2:[function(require,module,exports){
 /** @jsx React.DOM */
@@ -124,7 +124,7 @@ module.exports = React.createClass({displayName: 'exports',
 /** @jsx React.DOM */
 'use strict';
 
-var Message = require('./messageModel'),
+var Message = React.createFactory(require('./messageModel')),
 	ImageValidator = require('./imageValidator'),
 	$ = (window.$);
 

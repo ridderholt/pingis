@@ -2,7 +2,7 @@
 /** @jsx React.DOM */
 'use strict';
 
-var Message = require('./messageModel'),
+var Message = React.createFactory(require('./messageModel')),
 	ImageValidator = require('./imageValidator'),
 	$ = (window.$);
 

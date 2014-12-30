@@ -1,9 +1,9 @@
 'use strict';
 
-var Header = require('./headerModel'),
-	PlayerForm = require('./playerForm');
+var Header = React.createFactory(require('./headerModel')),
+	PlayerForm = React.createFactory(require('./playerForm'));
 
-React.renderComponent(
+React.render(
 	Header({ projectName: 'Pingisstegen', menuItems: [
 	{
 		name: 'Statistik',
@@ -23,4 +23,4 @@ React.renderComponent(
 	] }),
 	document.getElementById('headerContainer'));
 
-React.renderComponent(PlayerForm(), document.getElementById('player-form'));
+React.render(PlayerForm(), document.getElementById('player-form'));
