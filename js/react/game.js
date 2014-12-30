@@ -1,10 +1,10 @@
 'use strict';
 
-var Header = require('./headerModel'),
-	GameForm = require('./gameForm');
+var Header = React.createFactory(require('./headerModel')),
+	GameForm = React.createFactory(require('./gameForm'));
 
 
-React.renderComponent(
+React.render(
 	new Header({ projectName: 'Pingisstegen', menuItems: [
 	{
 		name: 'Statistik',
@@ -24,6 +24,6 @@ React.renderComponent(
 	] }),
 	document.getElementById('headerContainer'));
 
-React.renderComponent(
+React.render(
 	new GameForm({ source: '/api/players' }),
 	document.getElementById('game-container'));

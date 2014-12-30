@@ -2,8 +2,8 @@
 /** @jsx React.DOM */
 'use strict';
 
-var SelectBox = require('./selectbox'),
-	Message = require('./messageModel'),
+var SelectBox = React.createFactory(require('./selectbox')),
+	Message = React.createFactory(require('./messageModel')),
 	$ = (window.$);
 
 var gameForm = React.createClass({displayName: 'gameForm',

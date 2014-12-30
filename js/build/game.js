@@ -1,11 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var Header = require('./headerModel'),
-	GameForm = require('./gameForm');
+var Header = React.createFactory(require('./headerModel')),
+	GameForm = React.createFactory(require('./gameForm'));
 
 
-React.renderComponent(
+React.render(
 	new Header({ projectName: 'Pingisstegen', menuItems: [
 	{
 		name: 'Statistik',
@@ -25,15 +25,15 @@ React.renderComponent(
 	] }),
 	document.getElementById('headerContainer'));
 
-React.renderComponent(
+React.render(
 	new GameForm({ source: '/api/players' }),
 	document.getElementById('game-container'));
 },{"./gameForm":2,"./headerModel":3}],2:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
 
-var SelectBox = require('./selectbox'),
-	Message = require('./messageModel'),
+var SelectBox = React.createFactory(require('./selectbox')),
+	Message = React.createFactory(require('./messageModel')),
 	$ = (window.$);
 
 var gameForm = React.createClass({displayName: 'gameForm',
