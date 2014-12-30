@@ -29,7 +29,7 @@ React.renderComponent(PlayerForm(), document.getElementById('player-form'));
 },{"./headerModel":2,"./playerForm":6}],2:[function(require,module,exports){
 /** @jsx React.DOM */
 'use strict';
-var MenuItem = require('./menuItem'),
+var MenuItem = React.createFactory(require('./menuItem')),
 	ReactKey = require('./react-key');
 
 var headerModel = React.createClass({displayName: 'headerModel',

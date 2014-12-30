@@ -1,9 +1,9 @@
 'use strict';
 
-var Header = require('./headerModel'),
-	ScoreboardTable = require('./scoreboardTable');
+var Header = React.createFactory(require('./headerModel')),
+	ScoreboardTable = React.createFactory(require('./scoreboardTable'));
 
-React.renderComponent(
+React.render(
 	Header({ projectName: 'Pingisstegen', menuItems: [
 	{
 		name: 'Statistik',
@@ -23,6 +23,6 @@ React.renderComponent(
 	] }),
 	document.getElementById('headerContainer'));
 
-React.renderComponent(
+React.render(
 	ScoreboardTable({ source: '/api/scoreboard' }),
 	document.getElementById('scoreboard-contaier'));

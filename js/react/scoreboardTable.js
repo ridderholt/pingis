@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
 
-var ScoreboardRow = require('./scoreboardRow'),
+var ScoreboardRow = React.createFactory(require('./scoreboardRow')),
 	ReactKey = require('./react-key'),
 	$ = require('jQuery');
 

@@ -2,7 +2,7 @@
 'use strict';
 
 var $ = require('jQuery'),
-	ScoreboardDetails = require('./scoreboardDetails');
+	ScoreboardDetails = React.createFactory(require('./scoreboardDetails'));
 
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	getInitialState: function(){

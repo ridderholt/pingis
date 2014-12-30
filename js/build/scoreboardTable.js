@@ -2,7 +2,7 @@
 /** @jsx React.DOM */
 'use strict';
 
-var ScoreboardRow = require('./scoreboardRow'),
+var ScoreboardRow = React.createFactory(require('./scoreboardRow')),
 	ReactKey = require('./react-key'),
 	$ = (window.$);
 
@@ -73,7 +73,7 @@ module.exports = ScoreboardDetails;
 'use strict';
 
 var $ = (window.$),
-	ScoreboardDetails = require('./scoreboardDetails');
+	ScoreboardDetails = React.createFactory(require('./scoreboardDetails'));
 
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	getInitialState: function(){

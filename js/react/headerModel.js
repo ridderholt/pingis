@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 'use strict';
-var MenuItem = require('./menuItem'),
+var MenuItem = React.createFactory(require('./menuItem')),
 	ReactKey = require('./react-key');
 
 var headerModel = React.createClass({displayName: 'headerModel',

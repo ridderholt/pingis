@@ -3,7 +3,7 @@
 'use strict';
 
 var $ = (window.$),
-	ScoreboardDetails = require('./scoreboardDetails');
+	ScoreboardDetails = React.createFactory(require('./scoreboardDetails'));
 
 var ScoreboardRow = React.createClass({displayName: 'ScoreboardRow',
 	getInitialState: function(){
